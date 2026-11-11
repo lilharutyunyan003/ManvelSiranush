@@ -37,16 +37,6 @@
             min-height: 100dvh;
         }
 
-        /* --- HIDDEN YOUTUBE PLAYER --- */
-        #youtube-player {
-            position: absolute;
-            width: 1px;
-            height: 1px;
-            opacity: 0;
-            pointer-events: none;
-            z-index: -1;
-        }
-
         /* --- HERO SECTION --- */
         .hero-container {
             width: 100%;
@@ -163,6 +153,11 @@
             z-index: 20;
             border: 3px solid var(--bg-olive);
             margin-bottom: 0;
+            transition: transform 0.2s ease;
+        }
+
+        .music-control:active {
+            transform: scale(0.95);
         }
 
         .play-icon {
@@ -170,6 +165,7 @@
             height: 18px;
             fill: var(--btn-text);
             margin-left: 3px;
+            transition: opacity 0.3s ease;
         }
 
         .circular-text {
@@ -850,9 +846,6 @@
 </head>
 <body>
 
-    <!-- ✅ HIDDEN YOUTUBE PLAYER FOR BACKGROUND MUSIC -->
-    <div id="youtube-player"></div>
-
     <div class="hero-container">
         <!-- ✅ NAMES ON IMAGE - DARK OLIVE, SMALLER -->
         <div class="names-section">
@@ -1069,56 +1062,37 @@
         </div>
     </section>
 
-    <!-- Scroll Animation Script & Countdown Logic -->
+    <!-- Scroll Animation Script & Countdown Logic & MUSIC PLAYER -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // --- YOUTUBE MUSIC PLAYER SETUP ---
-            const tag = document.createElement('script');
-            tag.src = "https://www.youtube.com/iframe_api";
-            const firstScriptTag = document.getElementsByTagName('script')[0];
-            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+            
+            // --- ✅ HTML5 AUDIO PLAYER FOR MOBILE COMPATIBILITY ---
+            // Using your provided Shopify CDN link directly
+            const musicSrc = 'https://cdn.shopify.com/videos/c/o/v/30d4094aa2784827bc8f1006db815a17.mp4'; 
+            
+            const audio = new Audio(musicSrc);
+            audio.loop = true;
+            audio.volume = 0.5; // Set volume to 50%
 
-            let player;
             let isPlaying = false;
-
-            function onYouTubeIframeAPIReady() {
-                player = new YT.Player('youtube-player', {
-                    height: '0',
-                    width: '0',
-                    videoId: 'r8rg4lyul_c', // ✅ YOUR YOUTUBE VIDEO ID
-                    playerVars: {
-                        'autoplay': 0,
-                        'controls': 0,
-                        'loop': 1,
-                        'playlist': 'r8rg4lyul_c' // Required for looping single video
-                    },
-                    events: {
-                        'onReady': onPlayerReady
-                    }
-                });
-            }
-
-            function onPlayerReady(event) {
-                // Player is ready
-            }
-
-            // Music Button Click Handler
             const musicBtn = document.getElementById('musicBtn');
-            if(musicBtn) {
-                musicBtn.addEventListener('click', function() {
-                    if(player && typeof player.playVideo === 'function') {
-                        if(isPlaying) {
-                            player.pauseVideo();
-                            isPlaying = false;
-                            this.querySelector('.play-icon').style.opacity = '1';
-                        } else {
-                            player.playVideo();
-                            isPlaying = true;
-                            this.querySelector('.play-icon').style.opacity = '0.5';
-                        }
-                    }
-                });
-            }
+            const playIcon = musicBtn.querySelector('.play-icon');
+
+            musicBtn.addEventListener('click', function() {
+                if(isPlaying) {
+                    audio.pause();
+                    isPlaying = false;
+                    playIcon.style.opacity = '1';
+                } else {
+                    audio.play().then(() => {
+                        isPlaying = true;
+                        playIcon.style.opacity = '0.5';
+                    }).catch(error => {
+                        console.log("Audio play failed:", error);
+                        alert("Խնդրում ենք սեղմել կոճակը ևս մեկ անգամ");
+                    });
+                }
+            });
 
             // --- ANIMATIONS ---
             const observerOptions = { root: null, rootMargin: '0px', threshold: 0.15 };

@@ -16,7 +16,7 @@
             --bg-cream: #fdfbf7; 
             
             --text-white: #ffffff;
-            --text-dark: #4a4c42; 
+            --text-dark: #4a4c42;
             --btn-bg: #e8e6dc;
             --btn-text: #6b6d5e;
             
@@ -37,6 +37,16 @@
             min-height: 100dvh;
         }
 
+        /* --- HIDDEN YOUTUBE PLAYER --- */
+        #youtube-player {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            opacity: 0;
+            pointer-events: none;
+            z-index: -1;
+        }
+
         /* --- HERO SECTION --- */
         .hero-container {
             width: 100%;
@@ -48,7 +58,6 @@
             
             background-color: var(--bg-olive); 
             
-            /* ✅ NO TOP CUT - IMAGE STARTS AT VERY TOP */
             border-top-left-radius: 0;
             border-top-right-radius: 0;
             border-bottom-left-radius: 50% 18%; 
@@ -61,13 +70,13 @@
             box-shadow: 0 20px 50px rgba(0,0,0,0.15);
         }
 
-        /* ✅ NAMES OVERLAY ON TOP OF IMAGE */
+        /* ✅ NAMES ON IMAGE - SMALLER SIZE + SCROLL REVEAL */
         .names-section {
             position: absolute;
-            top: clamp(30px, 8vh, 60px); /* ✅ Positioned on the image */
+            top: clamp(30px, 8vh, 60px);
             left: 0;
             right: 0;
-            z-index: 20; /* ✅ Above the image */
+            z-index: 20;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -78,21 +87,18 @@
         .name {
             font-family: 'Cormorant Garamond', serif;
             font-weight: 300;
-            font-size: clamp(1.8rem, 5vw, 2.2rem);
+            font-size: clamp(1.4rem, 4vw, 1.8rem); /* ✅ SMALLER FONT SIZE */
             line-height: 1.1;
-            color: var(--text-white); 
+            color: var(--text-dark);
             text-transform: uppercase;
             letter-spacing: 0.2em;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.3); /* ✅ Readable over image */
+            text-shadow: 0 1px 8px rgba(255,255,255,0.4);
             
             opacity: 0;
             transition: opacity 1.2s cubic-bezier(0.25, 1, 0.5, 1), transform 1.2s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
-        .name.visible {
-            opacity: 1;
-            transform: translateX(0);
-        }
+        .name.visible { opacity: 1; transform: translateX(0); }
 
         .name-groom { transform: translateX(-50px); }
         .name-bride { transform: translateX(50px); }
@@ -100,11 +106,11 @@
         .ampersand {
             font-family: 'Cormorant Garamond', serif;
             font-weight: 300;
-            font-size: clamp(1.2rem, 3vw, 1.5rem);
-            color: var(--text-white);
+            font-size: clamp(0.9rem, 2.5vw, 1.2rem); /* ✅ SMALLER AMPERSAND */
+            color: var(--text-dark);
             text-transform: uppercase;
             letter-spacing: 0.1em;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            text-shadow: 0 1px 8px rgba(255,255,255,0.4);
             
             opacity: 0;
             transition: opacity 1.2s ease-out;
@@ -112,7 +118,6 @@
 
         .ampersand.visible { opacity: 0.9; }
 
-        /* ✅ IMAGE STARTS AT VERY TOP, NO CUT */
         .image-wrapper {
             width: 100%;
             position: relative;
@@ -133,6 +138,14 @@
             aspect-ratio: 3/4; 
             object-fit: cover;
             object-position: center 15%;
+        }
+
+        /* ✅ MOBILE: ELONGATE IMAGE SO TEXT IS HIDDEN OFF-SCREEN */
+        @media (max-width: 768px) {
+            .couple-photo {
+                aspect-ratio: 9/16; /* ✅ TALLER ASPECT RATIO FOR MOBILE */
+                object-position: center 20%;
+            }
         }
 
         .music-control {
@@ -188,10 +201,7 @@
             transform-origin: center;
         }
 
-        .decorative-divider.visible {
-            opacity: 0.85; 
-            transform: scaleX(1);
-        }
+        .decorative-divider.visible { opacity: 0.85; transform: scaleX(1); }
 
         .divider-path {
             fill: none;
@@ -210,10 +220,7 @@
             transition: opacity 1.2s cubic-bezier(0.25, 1, 0.5, 1), transform 1.2s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
-        .invitation-text-block.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
+        .invitation-text-block.visible { opacity: 1; transform: translateY(0); }
 
         .invitation-heading {
             font-family: 'Cormorant Garamond', serif;
@@ -251,10 +258,7 @@
             transition: opacity 1s cubic-bezier(0.25, 1, 0.5, 1), transform 1s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
-        .date-item.visible {
-            opacity: 1;
-            transform: scale(1);
-        }
+        .date-item.visible { opacity: 1; transform: scale(1); }
 
         .date-month {
             font-family: 'Noto Serif Armenian', serif;
@@ -290,7 +294,7 @@
 
         .date-separator.visible { opacity: 0.4; }
 
-        /* --- ✅ LOCATION SECTION (VERTICAL STACK + ALTERNATING SLIDE) --- */
+        /* --- ✅ LOCATION SECTION (SLIDE TO CENTER) --- */
         .location-section {
             width: 100%;
             max-width: 500px;
@@ -299,11 +303,11 @@
             text-align: center;
             
             opacity: 0;
-            transform: translateX(-30px);
+            transform: translateY(30px);
             transition: opacity 1s ease-out, transform 1s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
-        .location-section.visible { opacity: 1; transform: translateX(0); }
+        .location-section.visible { opacity: 1; transform: translateY(0); }
 
         .location-title {
             font-family: 'Cormorant Garamond', serif;
@@ -328,13 +332,12 @@
             align-items: center;
             width: 100%;
             max-width: 320px;
-            opacity: 1;
+            opacity: 0;
+            transform: translateY(40px);
             transition: opacity 1s ease-out, transform 1s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
-        .location-card:first-child { transform: translateX(-40px); }
-        .location-card:last-child { transform: translateX(40px); }
-        .location-card.visible { opacity: 1; transform: translateX(0); }
+        .location-card.visible { opacity: 1; transform: translateY(0); }
 
         .location-image-frame {
             width: 100%;
@@ -383,7 +386,7 @@
 
         .btn-map:hover { background-color: var(--text-dark); color: var(--bg-cream); }
 
-        /* --- ✅ TIMELINE SECTION (SAME LAYOUT AS LOCATION) --- */
+        /* --- ✅ TIMELINE SECTION (SLIDE TO CENTER) --- */
         .timeline-section {
             width: 100%;
             max-width: 500px;
@@ -400,11 +403,11 @@
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
             
             opacity: 0;
-            transform: translateX(30px);
+            transform: translateY(30px);
             transition: opacity 1s ease-out, transform 1s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
-        .timeline-section.visible { opacity: 1; transform: translateX(0); }
+        .timeline-section.visible { opacity: 1; transform: translateY(0); }
 
         .timeline-title {
             font-family: 'Cormorant Garamond', serif;
@@ -443,10 +446,11 @@
             opacity: 0;
             width: 100%;
             max-width: 320px;
+            transform: translateY(40px);
             transition: all 0.8s ease-out;
         }
 
-        .timeline-item.visible { opacity: 1; transform: translateX(0); }
+        .timeline-item.visible { opacity: 1; transform: translateY(0); }
 
         .timeline-time {
             font-family: 'Cormorant Garamond', serif;
@@ -716,7 +720,7 @@
 
         .btn-submit:hover { background-color: #3a3c32; transform: translateY(-2px); }
 
-        /* --- ✅ FINAL SECTION --- */
+        /* --- ✅ FINAL SECTION WITH L'INVITATION CENTERED AT TOP --- */
         .final-section {
             width: 100%;
             background-color: var(--bg-olive);
@@ -740,17 +744,20 @@
 
         .final-section.visible { opacity: 1; transform: translateX(0); }
 
+        /* ✅ L'INVITATION CENTERED AT TOP OF GREEN CARD */
         .l-invitation-text {
             position: absolute;
-            top: 30px;
-            right: 30px;
+            top: 25px;
+            left: 50%;
+            transform: translateX(-50%);
             font-family: 'Cormorant Garamond', serif;
             font-size: clamp(1rem, 3vw, 1.2rem);
             font-weight: 600;
-            letter-spacing: 0.1em;
+            letter-spacing: 0.15em;
             color: var(--text-white);
             opacity: 0.9;
             z-index: 2;
+            white-space: nowrap;
         }
 
         .waiting-text-small {
@@ -759,7 +766,7 @@
             font-weight: 400;
             font-style: italic;
             color: var(--text-white);
-            margin-top: 40px; 
+            margin-top: 50px;
             margin-bottom: 25px;
             letter-spacing: 0.05em;
             z-index: 2;
@@ -816,7 +823,7 @@
             .moment-photo { aspect-ratio: 1/1; }
             .moments-date { flex: 1; padding-left: 5px; align-items: center; justify-content: space-between; }
 
-            .l-invitation-text { top: 20px; right: 20px; }
+            .l-invitation-text { top: 20px; }
             
             .final-section {
                 padding-top: 40px;
@@ -824,7 +831,7 @@
                 border-top-right-radius: 50% 12%;
             }
             
-            .waiting-text-small { margin-top: 30px; margin-bottom: 20px; }
+            .waiting-text-small { margin-top: 40px; margin-bottom: 20px; }
             .final-image { margin-top: 15px; border-top-left-radius: 50% 15%; border-top-right-radius: 50% 15%; }
         }
         
@@ -843,23 +850,26 @@
 </head>
 <body>
 
+    <!-- ✅ HIDDEN YOUTUBE PLAYER FOR BACKGROUND MUSIC -->
+    <div id="youtube-player"></div>
+
     <div class="hero-container">
-        <!-- ✅ NAMES OVERLAY ON IMAGE (AT VERY TOP) -->
+        <!-- ✅ NAMES ON IMAGE - DARK OLIVE, SMALLER -->
         <div class="names-section">
             <h1 class="name name-groom" id="nameGroom">Մանվել</h1>
             <span class="ampersand" id="ampersand">&</span>
             <h1 class="name name-bride" id="nameBride">Սիրանուշ</h1>
         </div>
 
-        <!-- ✅ IMAGE STARTS AT VERY TOP, NO CUT -->
+        <!-- IMAGE STARTS AT VERY TOP -->
         <div class="image-wrapper">
             <img src="https://cdn.shopify.com/s/files/1/0771/6290/5791/files/IMG_5438_1.jpg?v=1794319053" 
                  alt="Մանվել և Սիրանուշ" 
                  class="couple-photo">
         </div>
         
-        <!-- Երաժշտության կոճակ -->
-        <div class="music-control">
+        <!-- Music Button -->
+        <div class="music-control" id="musicBtn">
             <svg class="circular-text" viewBox="0 0 100 100">
                 <defs>
                     <path id="circlePath" d="M 50, 50 m -38, 0 a 38,38 0 1,1 76,0 a 38,38 0 1,1 -76,0" />
@@ -873,7 +883,7 @@
             </svg>
         </div>
 
-        <!-- Դեկորատիվ գիծ -->
+        <!-- Decorative Divider -->
         <svg class="decorative-divider" id="decorativeDivider" viewBox="0 0 400 40" xmlns="http://www.w3.org/2000/svg">
             <path class="divider-path" d="M 20,20 Q 80,5 140,18 Q 155,20 165,15" />
             <path class="divider-path" d="M 140,18 Q 150,25 160,22" />
@@ -884,7 +894,7 @@
             <path class="divider-path" d="M 380,20 Q 320,5 260,18 Q 245,20 235,15" />
         </svg>
 
-        <!-- Հրավիրական տեքստ -->
+        <!-- Invitation Text -->
         <div class="invitation-text-block" id="invitationText">
             <h2 class="invitation-heading">Սիրելի հյուրեր</h2>
             <p class="invitation-body">
@@ -893,7 +903,7 @@
             </p>
         </div>
 
-        <!-- ✅ ԱՄՍԱԹԻՎ (23.10.2025) -->
+        <!-- Date -->
         <div class="date-block">
             <span class="date-item date-month" id="dateMonth">Հոկտեմբեր</span>
             <div class="date-separator" id="sep1"></div>
@@ -903,7 +913,7 @@
         </div>
     </div>
 
-    <!-- ✅ LOCATION SECTION -->
+    <!-- ✅ LOCATION SECTION (SLIDE TO CENTER) -->
     <section class="location-section" id="locSection">
         <h2 class="location-title">Հասցեներ</h2>
         
@@ -932,7 +942,7 @@
         </div>
     </section>
 
-    <!-- ✅ TIMELINE SECTION -->
+    <!-- ✅ TIMELINE SECTION (SLIDE TO CENTER) -->
     <section class="timeline-section" id="timeSection">
         <h2 class="timeline-title">Օրվա ծրագիր</h2>
         
@@ -1047,8 +1057,9 @@
         </form>
     </section>
 
-    <!-- ✅ FINAL SECTION -->
+    <!-- ✅ FINAL SECTION WITH L'INVITATION CENTERED AT TOP -->
     <section class="final-section" id="finalSection">
+        <!-- ✅ L'INVITATION CENTERED AT TOP OF GREEN CARD -->
         <div class="l-invitation-text">L'Invitation</div>
         <p class="waiting-text-small" id="waitingText">Սիրով սպասում ենք Ձեզ</p>
         <div class="final-image-container" id="finalImage">
@@ -1061,6 +1072,55 @@
     <!-- Scroll Animation Script & Countdown Logic -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // --- YOUTUBE MUSIC PLAYER SETUP ---
+            const tag = document.createElement('script');
+            tag.src = "https://www.youtube.com/iframe_api";
+            const firstScriptTag = document.getElementsByTagName('script')[0];
+            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+            let player;
+            let isPlaying = false;
+
+            function onYouTubeIframeAPIReady() {
+                player = new YT.Player('youtube-player', {
+                    height: '0',
+                    width: '0',
+                    videoId: 'r8rg4lyul_c', // ✅ YOUR YOUTUBE VIDEO ID
+                    playerVars: {
+                        'autoplay': 0,
+                        'controls': 0,
+                        'loop': 1,
+                        'playlist': 'r8rg4lyul_c' // Required for looping single video
+                    },
+                    events: {
+                        'onReady': onPlayerReady
+                    }
+                });
+            }
+
+            function onPlayerReady(event) {
+                // Player is ready
+            }
+
+            // Music Button Click Handler
+            const musicBtn = document.getElementById('musicBtn');
+            if(musicBtn) {
+                musicBtn.addEventListener('click', function() {
+                    if(player && typeof player.playVideo === 'function') {
+                        if(isPlaying) {
+                            player.pauseVideo();
+                            isPlaying = false;
+                            this.querySelector('.play-icon').style.opacity = '1';
+                        } else {
+                            player.playVideo();
+                            isPlaying = true;
+                            this.querySelector('.play-icon').style.opacity = '0.5';
+                        }
+                    }
+                });
+            }
+
+            // --- ANIMATIONS ---
             const observerOptions = { root: null, rootMargin: '0px', threshold: 0.15 };
 
             const observer = new IntersectionObserver((entries) => {
@@ -1069,7 +1129,7 @@
                 });
             }, observerOptions);
 
-            // Hero Elements
+            // Hero Elements (Names appear on scroll)
             const heroElements = [
                 { el: document.getElementById('nameGroom'), delay: 0 },
                 { el: document.getElementById('ampersand'), delay: 200 },
@@ -1087,11 +1147,16 @@
                 if (el) { el.style.transitionDelay = `${delay}ms`; observer.observe(el); }
             });
 
-            // Timeline Items Alternating
+            // Location Cards Slide to Center
+            const locationCards = document.querySelectorAll('.location-card');
+            locationCards.forEach((card, index) => {
+                card.style.transitionDelay = `${index * 200}ms`;
+                observer.observe(card);
+            });
+
+            // Timeline Items Slide to Center
             const timelineItems = document.querySelectorAll('.timeline-item');
             timelineItems.forEach((item, index) => {
-                const direction = index % 2 === 0 ? '-40px' : '40px';
-                item.style.transform = `translateX(${direction})`;
                 item.style.transitionDelay = `${index * 150}ms`;
                 observer.observe(item);
             });

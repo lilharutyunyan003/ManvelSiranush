@@ -17,11 +17,9 @@
             
             --text-white: #ffffff;
             --text-dark: #4a4c42; 
-            --text-black: #222222;
             --btn-bg: #e8e6dc;
             --btn-text: #6b6d5e;
             
-            /* ✅ MOBILE OPTIMIZED SIZES */
             --mobile-padding: clamp(15px, 4vw, 20px);
             --section-gap: clamp(30px, 6vw, 40px);
         }
@@ -36,7 +34,7 @@
             flex-direction: column;
             align-items: center;
             min-height: 100vh;
-            min-height: 100dvh; /* ✅ BETTER MOBILE HEIGHT HANDLING */
+            min-height: 100dvh;
         }
 
         /* --- HERO SECTION --- */
@@ -50,6 +48,9 @@
             
             background-color: var(--bg-olive); 
             
+            /* ✅ NO TOP CUT - IMAGE STARTS AT VERY TOP */
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
             border-bottom-left-radius: 50% 18%; 
             border-bottom-right-radius: 50% 18%;
             
@@ -60,29 +61,29 @@
             box-shadow: 0 20px 50px rgba(0,0,0,0.15);
         }
 
-        /* ✅ NAMES AT THE TOP */
+        /* ✅ NAMES OVERLAY ON TOP OF IMAGE */
         .names-section {
-            position: relative;
-            width: 100%;
-            height: auto;
-            min-height: 80px;
-            margin-top: 30px;
-            margin-bottom: 20px;
-            z-index: 5;
+            position: absolute;
+            top: clamp(30px, 8vh, 60px); /* ✅ Positioned on the image */
+            left: 0;
+            right: 0;
+            z-index: 20; /* ✅ Above the image */
             display: flex;
             justify-content: center;
             align-items: center;
             gap: 15px;
+            padding: 0 20px;
         }
 
         .name {
             font-family: 'Cormorant Garamond', serif;
             font-weight: 300;
-            font-size: clamp(1.8rem, 5vw, 2.2rem); /* ✅ RESPONSIVE FONT SIZE */
+            font-size: clamp(1.8rem, 5vw, 2.2rem);
             line-height: 1.1;
             color: var(--text-white); 
             text-transform: uppercase;
             letter-spacing: 0.2em;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3); /* ✅ Readable over image */
             
             opacity: 0;
             transition: opacity 1.2s cubic-bezier(0.25, 1, 0.5, 1), transform 1.2s cubic-bezier(0.25, 1, 0.5, 1);
@@ -93,13 +94,8 @@
             transform: translateX(0);
         }
 
-        .name-groom {
-            transform: translateX(-50px);
-        }
-
-        .name-bride {
-            transform: translateX(50px);
-        }
+        .name-groom { transform: translateX(-50px); }
+        .name-bride { transform: translateX(50px); }
 
         .ampersand {
             font-family: 'Cormorant Garamond', serif;
@@ -108,15 +104,15 @@
             color: var(--text-white);
             text-transform: uppercase;
             letter-spacing: 0.1em;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
             
             opacity: 0;
             transition: opacity 1.2s ease-out;
         }
 
-        .ampersand.visible {
-            opacity: 0.7;
-        }
+        .ampersand.visible { opacity: 0.9; }
 
+        /* ✅ IMAGE STARTS AT VERY TOP, NO CUT */
         .image-wrapper {
             width: 100%;
             position: relative;
@@ -292,11 +288,9 @@
             transition: opacity 0.8s ease-out;
         }
 
-        .date-separator.visible {
-            opacity: 0.4;
-        }
+        .date-separator.visible { opacity: 0.4; }
 
-        /* --- ✅ LOCATION SECTION (EQUAL SPACING + ALTERNATING SLIDE) --- */
+        /* --- ✅ LOCATION SECTION (VERTICAL STACK + ALTERNATING SLIDE) --- */
         .location-section {
             width: 100%;
             max-width: 500px;
@@ -304,16 +298,12 @@
             padding: var(--section-gap) var(--mobile-padding);
             text-align: center;
             
-            /* Section Animation */
             opacity: 0;
             transform: translateX(-30px);
             transition: opacity 1s ease-out, transform 1s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
-        .location-section.visible {
-            opacity: 1;
-            transform: translateX(0);
-        }
+        .location-section.visible { opacity: 1; transform: translateX(0); }
 
         .location-title {
             font-family: 'Cormorant Garamond', serif;
@@ -328,37 +318,28 @@
         .locations-grid {
             display: flex;
             flex-direction: column;
-            gap: var(--section-gap); /* ✅ EQUAL SPACING */
+            gap: var(--section-gap);
+            align-items: center;
         }
 
         .location-card {
             display: flex;
             flex-direction: column;
             align-items: center;
-            /* Card Animation */
+            width: 100%;
+            max-width: 320px;
             opacity: 1;
             transition: opacity 1s ease-out, transform 1s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
-        /* Church slides from Left */
-        .location-card:first-child {
-            transform: translateX(-40px);
-        }
-        
-        /* Venue slides from Right */
-        .location-card:last-child {
-            transform: translateX(40px);
-        }
-
-        .location-card.visible {
-            opacity: 1;
-            transform: translateX(0);
-        }
+        .location-card:first-child { transform: translateX(-40px); }
+        .location-card:last-child { transform: translateX(40px); }
+        .location-card.visible { opacity: 1; transform: translateX(0); }
 
         .location-image-frame {
             width: 100%;
             max-width: 280px;
-            height: clamp(140px, 35vw, 170px); /* ✅ RESPONSIVE HEIGHT */
+            height: clamp(140px, 35vw, 170px);
             border: 1px solid rgba(74, 76, 66, 0.2);
             padding: 6px;
             background: white;
@@ -366,11 +347,7 @@
             box-shadow: 0 5px 15px rgba(0,0,0,0.05);
         }
 
-        .location-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
+        .location-img { width: 100%; height: 100%; object-fit: cover; }
 
         .location-name {
             font-family: 'Cormorant Garamond', serif;
@@ -404,12 +381,9 @@
             transition: all 0.3s ease;
         }
 
-        .btn-map:hover {
-            background-color: var(--text-dark);
-            color: var(--bg-cream);
-        }
+        .btn-map:hover { background-color: var(--text-dark); color: var(--bg-cream); }
 
-        /* --- ✅ TIMELINE SECTION (EQUAL SPACING + ALTERNATING SLIDE) --- */
+        /* --- ✅ TIMELINE SECTION (SAME LAYOUT AS LOCATION) --- */
         .timeline-section {
             width: 100%;
             max-width: 500px;
@@ -425,16 +399,12 @@
             margin-bottom: 0;
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
             
-            /* Initial State for Animation */
             opacity: 0;
-            transform: translateX(30px); /* Start from Right */
+            transform: translateX(30px);
             transition: opacity 1s ease-out, transform 1s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
-        .timeline-section.visible {
-            opacity: 1;
-            transform: translateX(0);
-        }
+        .timeline-section.visible { opacity: 1; transform: translateX(0); }
 
         .timeline-title {
             font-family: 'Cormorant Garamond', serif;
@@ -451,8 +421,9 @@
         .timeline-list {
             display: flex;
             flex-direction: column;
-            gap: var(--section-gap); /* ✅ EQUAL SPACING */
+            gap: var(--section-gap);
             position: relative;
+            align-items: center;
         }
 
         .timeline-list::before {
@@ -470,14 +441,12 @@
             position: relative;
             z-index: 2;
             opacity: 0;
-            /* Alternating Direction Handled in JS */
+            width: 100%;
+            max-width: 320px;
             transition: all 0.8s ease-out;
         }
 
-        .timeline-item.visible {
-            opacity: 1;
-            transform: translateX(0);
-        }
+        .timeline-item.visible { opacity: 1; transform: translateX(0); }
 
         .timeline-time {
             font-family: 'Cormorant Garamond', serif;
@@ -501,7 +470,7 @@
             margin-top: 3px;
         }
 
-        /* --- ✅ NEW BEIGE SECTION (REFERENCE STYLE, ANIMATED) --- */
+        /* --- ✅ BEIGE MOMENTS SECTION --- */
         .beige-moments-section {
             width: 100%;
             max-width: 500px;
@@ -512,16 +481,12 @@
             align-items: stretch;
             gap: 20px;
             
-            /* Initial State for Animation */
             opacity: 0;
-            transform: translateX(-30px); /* Start from Left */
+            transform: translateX(-30px);
             transition: opacity 1s ease-out, transform 1s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
-        .beige-moments-section.visible {
-            opacity: 1;
-            transform: translateX(0);
-        }
+        .beige-moments-section.visible { opacity: 1; transform: translateX(0); }
 
         .moments-photos {
             flex: 1;
@@ -535,24 +500,13 @@
             aspect-ratio: 4/3;
             overflow: hidden;
             box-shadow: 0 4px 12px rgba(0,0,0,0.06);
-            
             opacity: 0;
-            /* Photos slide from Left */
             transform: translateX(-30px);
             transition: opacity 1s ease-out, transform 1s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
-        .moment-photo.visible {
-            opacity: 1;
-            transform: translateX(0);
-        }
-
-        .moment-photo img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-        }
+        .moment-photo.visible { opacity: 1; transform: translateX(0); }
+        .moment-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
         .moments-date {
             flex: 1;
@@ -570,23 +524,18 @@
             font-weight: 300;
             color: var(--text-dark);
             line-height: 1;
-            
             opacity: 0;
-            /* Dates slide from Right */
             transform: translateX(30px);
             transition: opacity 1s ease-out, transform 1s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
-        .big-date-number.visible {
-            opacity: 1;
-            transform: translateX(0);
-        }
+        .big-date-number.visible { opacity: 1; transform: translateX(0); }
 
         .date-part-23 { font-size: clamp(5rem, 15vw, 9rem); }
         .date-part-10 { font-size: clamp(3.5rem, 10vw, 6rem); }
         .date-part-2025 { font-size: clamp(2rem, 6vw, 3.5rem); opacity: 0.8; }
 
-        /* --- ✅ COUNTDOWN SECTION (DARK OLIVE BACKGROUND, REFERENCE FORMAT, ANIMATED) --- */
+        /* --- ✅ COUNTDOWN SECTION --- */
         .countdown-section {
             width: 100%;
             max-width: 500px;
@@ -597,16 +546,12 @@
             margin-top: 0;
             margin-bottom: 0;
             
-            /* Initial State for Animation */
             opacity: 0;
-            transform: translateX(30px); /* Start from Right */
+            transform: translateX(30px);
             transition: opacity 1s ease-out, transform 1s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
-        .countdown-section.visible {
-            opacity: 1;
-            transform: translateX(0);
-        }
+        .countdown-section.visible { opacity: 1; transform: translateX(0); }
 
         .countdown-title {
             font-family: 'Cormorant Garamond', serif;
@@ -624,10 +569,7 @@
             gap: clamp(15px, 5vw, 30px);
         }
 
-        .timer-block {
-            text-align: center;
-            min-width: 50px;
-        }
+        .timer-block { text-align: center; min-width: 50px; }
 
         .timer-num {
             font-family: 'Cormorant Garamond', serif;
@@ -648,7 +590,7 @@
             opacity: 0.8;
         }
 
-        /* --- ✅ RSVP SECTION (NO OVAL, DARK OLIVE TEXT, ANIMATED) --- */
+        /* --- ✅ RSVP SECTION --- */
         .rsvp-section {
             width: 100%;
             max-width: 500px;
@@ -660,16 +602,12 @@
             margin-top: 0;
             margin-bottom: 0;
             
-            /* Initial State for Animation */
             opacity: 0;
-            transform: translateX(-30px); /* Start from Left */
+            transform: translateX(-30px);
             transition: opacity 1s ease-out, transform 1s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
-        .rsvp-section.visible {
-            opacity: 1;
-            transform: translateX(0);
-        }
+        .rsvp-section.visible { opacity: 1; transform: translateX(0); }
 
         .rsvp-title {
             font-family: 'Cormorant Garamond', serif;
@@ -702,9 +640,7 @@
             line-height: 1.5;
         }
 
-        .form-group {
-            margin-bottom: 20px;
-        }
+        .form-group { margin-bottom: 20px; }
 
         .form-label {
             display: block;
@@ -715,11 +651,7 @@
             color: var(--text-dark);
         }
 
-        .radio-group {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
+        .radio-group { display: flex; flex-direction: column; gap: 8px; }
 
         .radio-label {
             display: flex;
@@ -763,13 +695,8 @@
             margin-bottom: 8px;
         }
 
-        .form-input::placeholder {
-            color: #999;
-        }
-
-        .form-input:focus, .form-select:focus {
-            border-color: var(--text-dark);
-        }
+        .form-input::placeholder { color: #999; }
+        .form-input:focus, .form-select:focus { border-color: var(--text-dark); }
 
         .btn-submit {
             display: block;
@@ -787,12 +714,9 @@
             transition: all 0.3s ease;
         }
 
-        .btn-submit:hover {
-            background-color: #3a3c32;
-            transform: translateY(-2px);
-        }
+        .btn-submit:hover { background-color: #3a3c32; transform: translateY(-2px); }
 
-        /* --- ✅ FINAL SECTION (OVAL GREEN BG + FULL WIDTH IMAGE, ANIMATED) --- */
+        /* --- ✅ FINAL SECTION --- */
         .final-section {
             width: 100%;
             background-color: var(--bg-olive);
@@ -809,16 +733,12 @@
             flex-direction: column;
             align-items: center;
             
-            /* Initial State for Animation */
             opacity: 0;
-            transform: translateX(30px); /* Start from Right */
+            transform: translateX(30px);
             transition: opacity 1s ease-out, transform 1s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
-        .final-section.visible {
-            opacity: 1;
-            transform: translateX(0);
-        }
+        .final-section.visible { opacity: 1; transform: translateX(0); }
 
         .l-invitation-text {
             position: absolute;
@@ -848,10 +768,7 @@
             transition: opacity 1s ease-out, transform 1s ease-out;
         }
 
-        .waiting-text-small.visible {
-            opacity: 1;
-            transform: translateX(0);
-        }
+        .waiting-text-small.visible { opacity: 1; transform: translateX(0); }
 
         .final-image-container {
             width: 100%; 
@@ -864,10 +781,7 @@
             transition: opacity 1s ease-out 0.2s, transform 1s ease-out 0.2s;
         }
 
-        .final-image-container.visible {
-            opacity: 1;
-            transform: translateX(0);
-        }
+        .final-image-container.visible { opacity: 1; transform: translateX(0); }
 
         .final-image {
             width: 100%;
@@ -897,12 +811,7 @@
                 border-bottom-right-radius: 50% 12%; 
             }
 
-            .beige-moments-section {
-                flex-direction: row;
-                gap: 10px;
-                align-items: center;
-            }
-
+            .beige-moments-section { flex-direction: row; gap: 10px; align-items: center; }
             .moments-photos { flex: 1; gap: 6px; }
             .moment-photo { aspect-ratio: 1/1; }
             .moments-date { flex: 1; padding-left: 5px; align-items: center; justify-content: space-between; }
@@ -935,14 +844,14 @@
 <body>
 
     <div class="hero-container">
-        <!-- ✅ NAMES AT THE TOP -->
+        <!-- ✅ NAMES OVERLAY ON IMAGE (AT VERY TOP) -->
         <div class="names-section">
             <h1 class="name name-groom" id="nameGroom">Մանվել</h1>
             <span class="ampersand" id="ampersand">&</span>
             <h1 class="name name-bride" id="nameBride">Սիրանուշ</h1>
         </div>
 
-        <!-- Նկար -->
+        <!-- ✅ IMAGE STARTS AT VERY TOP, NO CUT -->
         <div class="image-wrapper">
             <img src="https://cdn.shopify.com/s/files/1/0771/6290/5791/files/IMG_5438_1.jpg?v=1794319053" 
                  alt="Մանվել և Սիրանուշ" 
@@ -984,7 +893,7 @@
             </p>
         </div>
 
-        <!-- ✅ ԹԱՐՄԱՑՎԱԾ ԱՄՍԱԹԻՎ (23.10.2025) -->
+        <!-- ✅ ԱՄՍԱԹԻՎ (23.10.2025) -->
         <div class="date-block">
             <span class="date-item date-month" id="dateMonth">Հոկտեմբեր</span>
             <div class="date-separator" id="sep1"></div>
@@ -994,12 +903,11 @@
         </div>
     </div>
 
-    <!-- ✅ LOCATION SECTION (EQUAL SPACING + ALTERNATING SLIDE) -->
+    <!-- ✅ LOCATION SECTION -->
     <section class="location-section" id="locSection">
         <h2 class="location-title">Հասցեներ</h2>
         
         <div class="locations-grid">
-            <!-- Եկեղեցի (Slides from Left) -->
             <div class="location-card">
                 <div class="location-image-frame">
                     <img src="https://cdn.shopify.com/s/files/1/0771/6290/5791/files/193140216_4369338086432270_7837731367334312683_n.jpg?v=1794331304" 
@@ -1011,7 +919,6 @@
                 <a href="https://maps.google.com/?q=Saint+John+the+Evangelist+Church+Artashat+Yerevan+Street+2" target="_blank" class="btn-map">Տեսնել քարտեզում</a>
             </div>
 
-            <!-- Սրահ (Slides from Right) -->
             <div class="location-card">
                 <div class="location-image-frame">
                     <img src="https://cdn.shopify.com/s/files/1/0771/6290/5791/files/XXL_height.webp?v=1794331302" 
@@ -1025,7 +932,7 @@
         </div>
     </section>
 
-    <!-- ✅ TIMELINE SECTION (EQUAL SPACING + ALTERNATING SLIDE) -->
+    <!-- ✅ TIMELINE SECTION -->
     <section class="timeline-section" id="timeSection">
         <h2 class="timeline-title">Օրվա ծրագիր</h2>
         
@@ -1062,9 +969,8 @@
         </div>
     </section>
 
-    <!-- ✅ NEW BEIGE MOMENTS SECTION -->
+    <!-- ✅ BEIGE MOMENTS SECTION -->
     <section class="beige-moments-section" id="beigeSection">
-        <!-- Left: 3 Photos Stacked (Slide from Left) -->
         <div class="moments-photos">
             <div class="moment-photo" id="photo1">
                 <img src="https://cdn.shopify.com/s/files/1/0771/6290/5791/files/IMG_5402.jpg?v=1794332902" alt="Moment 1">
@@ -1077,7 +983,6 @@
             </div>
         </div>
 
-        <!-- Right: Big Date Aligned (Slide from Right) -->
         <div class="moments-date">
             <div class="big-date-number date-part-23" id="date23">23</div>
             <div class="big-date-number date-part-10" id="date10">10</div>
@@ -1085,7 +990,7 @@
         </div>
     </section>
 
-    <!-- ✅ COUNTDOWN SECTION (DARK OLIVE BACKGROUND, REFERENCE FORMAT) -->
+    <!-- ✅ COUNTDOWN SECTION -->
     <section class="countdown-section" id="countSection">
         <h2 class="countdown-title">Մինչ մեր հարսանիքը մնացել է</h2>
         
@@ -1109,41 +1014,26 @@
         </div>
     </section>
 
-    <!-- ✅ RSVP SECTION (NO OVAL, DARK OLIVE TEXT) -->
+    <!-- ✅ RSVP SECTION -->
     <section class="rsvp-section" id="rsvpSection">
         <h2 class="rsvp-title">Հարցաթերթիկ</h2>
         
         <form class="rsvp-form" onsubmit="event.preventDefault(); alert('Շնորհակալություն! Ձեր պատասխանը գրանցված է։');">
-            
-            <p class="form-intro">
-                Խնդրում ենք հաստատել Ձեր ներկայությունը մինչև հոկտեմբերի 25-ը։
-            </p>
+            <p class="form-intro">Խնդրում ենք հաստատել Ձեր ներկայությունը մինչև հոկտեմբերի 25-ը։</p>
 
             <div class="form-group">
                 <label class="form-label">Կկարողանա՞ք մասնակցել</label>
                 <div class="radio-group">
-                    <label class="radio-label">
-                        <input type="radio" name="attendance" value="yes" required>
-                        Այո, սիրով կմասնակցենք
-                    </label>
-                    <label class="radio-label">
-                        <input type="radio" name="attendance" value="no">
-                        Ոչ, ցավոք չեմ կարողանա մասնակցել
-                    </label>
+                    <label class="radio-label"><input type="radio" name="attendance" value="yes" required> Այո, սիրով կմասնակցենք</label>
+                    <label class="radio-label"><input type="radio" name="attendance" value="no"> Ոչ, ցավոք չեմ կարողանա մասնակցել</label>
                 </div>
             </div>
 
             <div class="form-group">
                 <label class="form-label">Ու՞մ կողմից եք</label>
                 <div class="radio-group">
-                    <label class="radio-label">
-                        <input type="radio" name="side" value="groom" required>
-                        Փեսայի
-                    </label>
-                    <label class="radio-label">
-                        <input type="radio" name="side" value="bride">
-                        Հարսի
-                    </label>
+                    <label class="radio-label"><input type="radio" name="side" value="groom" required> Փեսայի</label>
+                    <label class="radio-label"><input type="radio" name="side" value="bride"> Հարսի</label>
                 </div>
             </div>
 
@@ -1157,12 +1047,10 @@
         </form>
     </section>
 
-    <!-- ✅ FINAL SECTION (OVAL GREEN BG + FULL WIDTH IMAGE) -->
+    <!-- ✅ FINAL SECTION -->
     <section class="final-section" id="finalSection">
         <div class="l-invitation-text">L'Invitation</div>
-        
         <p class="waiting-text-small" id="waitingText">Սիրով սպասում ենք Ձեզ</p>
-        
         <div class="final-image-container" id="finalImage">
             <img src="https://cdn.shopify.com/s/files/1/0771/6290/5791/files/IMG_5402.jpg?v=1794332902" 
                  alt="Մանվել և Սիրանուշ" 
@@ -1173,18 +1061,11 @@
     <!-- Scroll Animation Script & Countdown Logic -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // --- ANIMATIONS ---
-            const observerOptions = {
-                root: null,
-                rootMargin: '0px',
-                threshold: 0.15
-            };
+            const observerOptions = { root: null, rootMargin: '0px', threshold: 0.15 };
 
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                    }
+                    if (entry.isIntersecting) entry.target.classList.add('visible');
                 });
             }, observerOptions);
 
@@ -1195,7 +1076,6 @@
                 { el: document.getElementById('nameBride'), delay: 400 },
                 { el: document.getElementById('decorativeDivider'), delay: 600 },
                 { el: document.getElementById('invitationText'), delay: 800 },
-                
                 { el: document.getElementById('dateMonth'), delay: 1000 },
                 { el: document.getElementById('sep1'), delay: 1150 },
                 { el: document.getElementById('dateDay'), delay: 1300 },
@@ -1204,23 +1084,19 @@
             ];
 
             heroElements.forEach(({ el, delay }) => {
-                if (el) {
-                    el.style.transitionDelay = `${delay}ms`;
-                    observer.observe(el);
-                }
+                if (el) { el.style.transitionDelay = `${delay}ms`; observer.observe(el); }
             });
 
-            // ✅ TIMELINE ITEMS ALTERNATING ANIMATION (EQUAL SPACING)
+            // Timeline Items Alternating
             const timelineItems = document.querySelectorAll('.timeline-item');
             timelineItems.forEach((item, index) => {
-                // Even items slide from left, Odd items slide from right
                 const direction = index % 2 === 0 ? '-40px' : '40px';
                 item.style.transform = `translateX(${direction})`;
                 item.style.transitionDelay = `${index * 150}ms`;
                 observer.observe(item);
             });
 
-            // Beige Section Elements
+            // Beige Section
             const beigeSequence = [
                 { el: document.getElementById('photo1'), delay: 0 },
                 { el: document.getElementById('date23'), delay: 200 },
@@ -1231,37 +1107,30 @@
             ];
 
             beigeSequence.forEach(({ el, delay }) => {
-                if (el) {
-                    el.style.transitionDelay = `${delay}ms`;
-                    observer.observe(el);
-                }
+                if (el) { el.style.transitionDelay = `${delay}ms`; observer.observe(el); }
             });
 
-            // ✅ MAIN SECTIONS ALTERNATING SLIDE-IN ANIMATION
+            // Main Sections Alternating
             const mainSections = [
-                { el: document.getElementById('locSection'), delay: 0 },      // Left
-                { el: document.getElementById('timeSection'), delay: 100 },   // Right
-                { el: document.getElementById('beigeSection'), delay: 200 },  // Left
-                { el: document.getElementById('countSection'), delay: 300 },  // Right
-                { el: document.getElementById('rsvpSection'), delay: 400 },   // Left
-                { el: document.getElementById('finalSection'), delay: 500 }   // Right
+                { el: document.getElementById('locSection'), delay: 0 },
+                { el: document.getElementById('timeSection'), delay: 100 },
+                { el: document.getElementById('beigeSection'), delay: 200 },
+                { el: document.getElementById('countSection'), delay: 300 },
+                { el: document.getElementById('rsvpSection'), delay: 400 },
+                { el: document.getElementById('finalSection'), delay: 500 }
             ];
 
             mainSections.forEach(({ el, delay }) => {
-                if (el) {
-                    el.style.transitionDelay = `${delay}ms`;
-                    observer.observe(el);
-                }
+                if (el) { el.style.transitionDelay = `${delay}ms`; observer.observe(el); }
             });
 
-            // Final Section Inner Elements
+            // Final Section Inner
             const finalImage = document.getElementById('finalImage');
             const waitingText = document.getElementById('waitingText');
-            
             if(finalImage) observer.observe(finalImage);
             if(waitingText) observer.observe(waitingText);
 
-            // ✅ COUNTDOWN TIMER LOGIC
+            // Countdown Timer
             const weddingDate = new Date('2025-10-23T14:00:00').getTime();
 
             function updateTimer() {

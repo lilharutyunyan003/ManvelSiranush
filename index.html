@@ -1,1 +1,1359 @@
+<!DOCTYPE html>
+<html lang="hy">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Մանվել & Սիրանուշ | Հարսանիք</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Noto+Serif+Armenian:ital,wght@0,400;1,400&family=Dancing+Script:wght@400;600&family=Montserrat:wght@400;500&display=swap" rel="stylesheet">
 
+    <style>
+        :root {
+            --bg-olive: #7a7d6b; 
+            --bg-cream: #fdfbf7; 
+            
+            --text-white: #ffffff;
+            --text-dark: #4a4c42; 
+            --text-black: #222222;
+            --btn-bg: #e8e6dc;
+            --btn-text: #6b6d5e;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg-cream);
+            font-family: 'Cormorant Garamond', serif;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* --- HERO SECTION --- */
+        .hero-container {
+            width: 100%;
+            max-width: 500px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            
+            background-color: var(--bg-olive); 
+            
+            border-bottom-left-radius: 50% 18%; 
+            border-bottom-right-radius: 50% 18%;
+            
+            overflow: hidden; 
+            margin-top: 0;
+            padding-top: 0;
+            padding-bottom: 50px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+        }
+
+        .image-wrapper {
+            width: 100%;
+            position: relative;
+            z-index: 10;
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
+            border-bottom-left-radius: 50% 25%; 
+            border-bottom-right-radius: 50% 25%;
+            overflow: hidden;
+            background: #fff;
+            margin-top: 0;
+        }
+
+        .couple-photo {
+            width: 100%;
+            height: auto;
+            display: block;
+            aspect-ratio: 3/4; 
+            object-fit: cover;
+            object-position: center 15%;
+        }
+
+        .music-control {
+            position: relative;
+            margin-top: -30px; 
+            width: 60px;
+            height: 60px;
+            background-color: var(--btn-bg);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+            z-index: 20;
+            border: 3px solid var(--bg-olive);
+            margin-bottom: 0;
+        }
+
+        .play-icon {
+            width: 18px;
+            height: 18px;
+            fill: var(--btn-text);
+            margin-left: 3px;
+        }
+
+        .circular-text {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            animation: spin 15s linear infinite;
+        }
+        
+        .circular-text text {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 8.5px;
+            letter-spacing: 1.5px;
+            fill: var(--btn-text);
+            text-transform: lowercase;
+            font-weight: 600;
+        }
+
+        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+        .names-section {
+            position: relative;
+            width: 100%;
+            height: 110px;
+            margin-top: -35px; 
+            z-index: 5;
+        }
+
+        .name {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 300;
+            font-size: 1.8rem; 
+            line-height: 1.1;
+            color: var(--text-white); 
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            
+            opacity: 0;
+            transition: opacity 1.2s cubic-bezier(0.25, 1, 0.5, 1), transform 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .name.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .name-groom {
+            position: absolute;
+            top: 35%;
+            left: 10%;
+            transform: translateX(-50px);
+        }
+
+        .name-bride {
+            position: absolute;
+            bottom: 5%;
+            right: 10%;
+            transform: translateX(50px);
+        }
+
+        .ampersand {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 300;
+            font-size: 1.2rem;
+            color: var(--text-white);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            
+            opacity: 0;
+            transition: opacity 1.2s ease-out;
+        }
+
+        .ampersand.visible {
+            opacity: 0.7;
+        }
+
+        .decorative-divider {
+            width: 85%; 
+            max-width: 350px;
+            height: auto;
+            margin: 25px auto;
+            opacity: 0;
+            transform: scaleX(0);
+            transition: opacity 1.2s ease-out, transform 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+            transform-origin: center;
+        }
+
+        .decorative-divider.visible {
+            opacity: 0.85; 
+            transform: scaleX(1);
+        }
+
+        .divider-path {
+            fill: none;
+            stroke: var(--text-white); 
+            stroke-width: 1.5;
+            stroke-linecap: round;
+        }
+
+        .invitation-text-block {
+            text-align: center;
+            padding: 0; 
+            margin-bottom: 30px;
+            width: 100%;
+            opacity: 0;
+            transform: translateY(-20px); 
+            transition: opacity 1.2s cubic-bezier(0.25, 1, 0.5, 1), transform 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .invitation-text-block.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .invitation-heading {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 400;
+            font-size: 1.6rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-bottom: 20px;
+            color: var(--text-white);
+        }
+
+        .invitation-body {
+            font-family: 'Noto Serif Armenian', serif;
+            font-size: 0.9rem; 
+            line-height: 1.8;
+            font-weight: 400;
+            color: var(--text-white);
+            opacity: 0.9;
+            width: 100%;
+            margin: 0;
+            padding: 0 20px;
+        }
+
+        .date-block {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 40px; 
+        }
+
+        .date-item {
+            opacity: 0;
+            transform: scale(0.8);
+            transition: opacity 1s cubic-bezier(0.25, 1, 0.5, 1), transform 1s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .date-item.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .date-month {
+            font-family: 'Noto Serif Armenian', serif;
+            font-size: 0.9rem;
+            letter-spacing: 0.1em;
+            color: var(--text-white);
+            opacity: 0.9;
+        }
+
+        .date-day {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 300;
+            font-size: 2.8rem; 
+            color: var(--text-white);
+            line-height: 1;
+        }
+
+        .date-year {
+            font-family: 'Noto Serif Armenian', serif;
+            font-size: 0.9rem;
+            letter-spacing: 0.1em;
+            color: var(--text-white);
+            opacity: 0.9;
+        }
+
+        .date-separator {
+            width: 1px;
+            height: 30px;
+            background-color: var(--text-white);
+            opacity: 0;
+            transition: opacity 0.8s ease-out;
+        }
+
+        .date-separator.visible {
+            opacity: 0.4;
+        }
+
+        /* --- ✅ LOCATION SECTION (RESTORED OLD STYLE WITH CARDS) --- */
+        .location-section {
+            width: 100%;
+            max-width: 500px;
+            background-color: var(--bg-cream);
+            padding: 50px 20px 60px;
+            text-align: center;
+            
+            /* Section Animation */
+            opacity: 0;
+            transform: translateX(-30px);
+            transition: opacity 1s ease-out, transform 1s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .location-section.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .location-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 400;
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--text-dark);
+            margin-bottom: 30px;
+        }
+
+        .locations-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+
+        .location-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            /* Card Animation - FIXED TO ENSURE VISIBILITY */
+            opacity: 1; /* Changed from 0 to 1 as fallback */
+            transition: opacity 1s ease-out, transform 1s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        /* Church slides from Left */
+        .location-card:first-child {
+            transform: translateX(-40px);
+        }
+        
+        /* Venue slides from Right */
+        .location-card:last-child {
+            transform: translateX(40px);
+        }
+
+        .location-card.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .location-image-frame {
+            width: 100%;
+            max-width: 280px;
+            height: 170px;
+            border: 1px solid rgba(74, 76, 66, 0.2);
+            padding: 6px;
+            background: white;
+            margin-bottom: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        .location-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .location-name {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 600;
+            font-size: 1.2rem;
+            color: var(--text-dark);
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .location-address {
+            font-family: 'Noto Serif Armenian', serif;
+            font-size: 0.8rem;
+            color: var(--text-dark);
+            opacity: 0.8;
+            line-height: 1.5;
+            margin-bottom: 12px;
+        }
+
+        .btn-map {
+            display: inline-block;
+            padding: 6px 18px;
+            border: 1px solid var(--text-dark);
+            color: var(--text-dark);
+            text-decoration: none;
+            font-family: 'Noto Serif Armenian', serif;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            transition: all 0.3s ease;
+        }
+
+        .btn-map:hover {
+            background-color: var(--text-dark);
+            color: var(--bg-cream);
+        }
+
+        /* --- ✅ TIMELINE SECTION (ANIMATED) --- */
+        .timeline-section {
+            width: 100%;
+            max-width: 500px;
+            background-color: var(--bg-olive);
+            border-top-left-radius: 50% 15%;
+            border-top-right-radius: 50% 15%;
+            border-bottom-left-radius: 50% 15%;
+            border-bottom-right-radius: 50% 15%;
+            
+            padding: 60px 20px;
+            text-align: center;
+            color: var(--text-white);
+            margin-bottom: 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            
+            /* Initial State for Animation */
+            opacity: 0;
+            transform: translateX(30px); /* Start from Right */
+            transition: opacity 1s ease-out, transform 1s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .timeline-section.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .timeline-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 400;
+            font-size: 1.6rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-bottom: 40px;
+            border-bottom: 1px solid rgba(255,255,255,0.3);
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+
+        .timeline-list {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            position: relative;
+        }
+
+        .timeline-list::before {
+            content: '';
+            position: absolute;
+            top: 10px;
+            bottom: 10px;
+            left: 50%;
+            width: 1px;
+            background-color: rgba(255,255,255,0.2);
+            transform: translateX(-50%);
+        }
+
+        .timeline-item {
+            position: relative;
+            z-index: 2;
+            opacity: 0;
+            /* Alternating Direction Handled in JS */
+            transition: all 0.8s ease-out;
+        }
+
+        .timeline-item.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .timeline-time {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem;
+            font-weight: 300;
+            margin-bottom: 5px;
+        }
+
+        .timeline-event {
+            font-family: 'Noto Serif Armenian', serif;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            opacity: 0.9;
+        }
+
+        .timeline-sub {
+            font-family: 'Noto Serif Armenian', serif;
+            font-size: 0.75rem;
+            opacity: 0.6;
+            margin-top: 3px;
+        }
+
+        /* --- ✅ NEW BEIGE SECTION (REFERENCE STYLE, ANIMATED) --- */
+        .beige-moments-section {
+            width: 100%;
+            max-width: 500px;
+            background-color: var(--bg-cream);
+            padding: 60px 30px;
+            display: flex;
+            flex-direction: row;
+            align-items: stretch;
+            gap: 20px;
+            
+            /* Initial State for Animation */
+            opacity: 0;
+            transform: translateX(-30px); /* Start from Left */
+            transition: opacity 1s ease-out, transform 1s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .beige-moments-section.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .moments-photos {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .moment-photo {
+            width: 100%;
+            aspect-ratio: 4/3;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+            
+            opacity: 0;
+            /* Photos slide from Left */
+            transform: translateX(-30px);
+            transition: opacity 1s ease-out, transform 1s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .moment-photo.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .moment-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .moments-date {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding-left: 10px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+
+        .big-date-number {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 300;
+            color: var(--text-dark);
+            line-height: 1;
+            
+            opacity: 0;
+            /* Dates slide from Right */
+            transform: translateX(30px);
+            transition: opacity 1s ease-out, transform 1s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .big-date-number.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .date-part-23 { font-size: 9rem; }
+        .date-part-10 { font-size: 6rem; }
+        .date-part-2025 { font-size: 3.5rem; opacity: 0.8; }
+
+        /* --- ✅ COUNTDOWN SECTION (DARK OLIVE BACKGROUND, REFERENCE FORMAT, ANIMATED) --- */
+        .countdown-section {
+            width: 100%;
+            max-width: 500px;
+            background-color: var(--bg-olive); /* Dark Olive BG */
+            padding: 50px 20px;
+            text-align: center;
+            color: var(--text-white); /* White Text */
+            margin-top: 0;
+            margin-bottom: 0;
+            
+            /* Initial State for Animation */
+            opacity: 0;
+            transform: translateX(30px); /* Start from Right */
+            transition: opacity 1s ease-out, transform 1s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .countdown-section.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .countdown-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 400;
+            font-style: italic; /* Italic like reference */
+            font-size: 1.3rem;
+            margin-bottom: 30px;
+            color: var(--text-white);
+            letter-spacing: 0.05em;
+        }
+
+        .timer-grid {
+            display: flex;
+            justify-content: center;
+            gap: 30px; /* Spacing between numbers */
+        }
+
+        .timer-block {
+            text-align: center;
+            min-width: 50px;
+        }
+
+        .timer-num {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3.2rem; /* Large numbers like reference */
+            font-weight: 300;
+            line-height: 1;
+            display: block;
+            margin-bottom: 8px;
+            color: var(--text-white);
+        }
+
+        .timer-label {
+            font-family: 'Noto Serif Armenian', serif;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-white);
+            opacity: 0.8;
+        }
+
+        /* --- ✅ RSVP SECTION (NO OVAL, DARK OLIVE TEXT, ANIMATED) --- */
+        .rsvp-section {
+            width: 100%;
+            max-width: 500px;
+            background-color: #ffffff; /* White BG, no oval */
+            
+            /* Removed Border Radius */
+            border-radius: 0; 
+            
+            padding: 50px 30px;
+            text-align: center;
+            color: var(--text-dark); /* Dark Olive Text */
+            margin-top: 0;
+            margin-bottom: 0; /* Connect to next section */
+            
+            /* Initial State for Animation */
+            opacity: 0;
+            transform: translateX(-30px); /* Start from Left */
+            transition: opacity 1s ease-out, transform 1s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .rsvp-section.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .rsvp-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 400;
+            font-size: 1.6rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-bottom: 25px;
+            border-bottom: 1px solid rgba(74, 76, 66, 0.3); /* Dark Line */
+            display: inline-block;
+            padding-bottom: 8px;
+            color: var(--text-dark);
+        }
+
+        /* Form Styles */
+        .rsvp-form {
+            background-color: #ffffff;
+            padding: 25px 20px;
+            border-radius: 12px;
+            text-align: left;
+            color: var(--text-dark); /* Dark Olive Text */
+        }
+
+        .form-intro {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-size: 0.95rem;
+            text-align: center;
+            margin-bottom: 20px;
+            color: var(--text-dark);
+            line-height: 1.5;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            font-family: 'Noto Serif Armenian', serif;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--text-dark); /* Dark Color */
+        }
+
+        /* Custom Radio Buttons (Filled Dark Olive Dot) */
+        .radio-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .radio-label {
+            display: flex;
+            align-items: center;
+            font-family: 'Noto Serif Armenian', serif;
+            font-size: 0.85rem;
+            cursor: pointer;
+            color: #555;
+        }
+
+        .radio-label input[type="radio"] {
+            appearance: none;
+            -webkit-appearance: none;
+            width: 16px;
+            height: 16px;
+            border: 2px solid var(--text-dark); /* Dark Border */
+            border-radius: 50%;
+            margin-right: 10px;
+            position: relative;
+            outline: none;
+            cursor: pointer;
+            background: white;
+        }
+
+        .radio-label input[type="radio"]:checked {
+            background-color: var(--text-dark); /* Filled Dark Dot */
+            border-color: var(--text-dark);
+        }
+
+        /* Inputs and Selects */
+        .form-input, .form-select {
+            width: 100%;
+            padding: 10px 12px;
+            background: #ffffff;
+            border: 1px solid #cccccc;
+            border-radius: 20px;
+            color: var(--text-dark); /* Dark Text */
+            font-family: 'Noto Serif Armenian', serif;
+            font-size: 0.85rem;
+            outline: none;
+            margin-bottom: 8px;
+        }
+
+        .form-input::placeholder {
+            color: #999;
+        }
+
+        .form-input:focus, .form-select:focus {
+            border-color: var(--text-dark); /* Dark Focus */
+        }
+
+        /* Submit Button */
+        .btn-submit {
+            display: block;
+            width: fit-content;
+            margin: 15px auto 0;
+            padding: 10px 30px;
+            background-color: var(--text-dark); /* Dark Olive Button */
+            color: #ffffff;
+            border: none;
+            border-radius: 20px;
+            font-family: 'Noto Serif Armenian', serif;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-submit:hover {
+            background-color: #3a3c32;
+            transform: translateY(-2px);
+        }
+
+        /* --- ✅ FINAL SECTION (OVAL GREEN BG + FULL WIDTH IMAGE, ANIMATED) --- */
+        .final-section {
+            width: 100%;
+            /* No Max-Width Constraint so it can touch edges */
+            background-color: var(--bg-olive); /* Dark Olive */
+            position: relative;
+            overflow: hidden;
+            /* Oval Top Shape for the entire green background */
+            border-top-left-radius: 50% 15%;
+            border-top-right-radius: 50% 15%;
+            /* Rectangular Bottom */
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+            padding-top: 60px;
+            padding-bottom: 0;
+            margin-top: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            
+            /* Initial State for Animation */
+            opacity: 0;
+            transform: translateX(30px); /* Start from Right */
+            transition: opacity 1s ease-out, transform 1s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .final-section.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .l-invitation-text {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.2rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            color: var(--text-white);
+            opacity: 0.9;
+            z-index: 2;
+        }
+
+        .waiting-text-small {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.2rem; /* Small Size */
+            font-weight: 400;
+            font-style: italic;
+            color: var(--text-white);
+            /* Lowered Position */
+            margin-top: 40px; 
+            margin-bottom: 25px;
+            letter-spacing: 0.05em;
+            z-index: 2;
+            opacity: 0;
+            /* Text slides from Left */
+            transform: translateX(-30px);
+            transition: opacity 1s ease-out, transform 1s ease-out;
+        }
+
+        .waiting-text-small.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .final-image-container {
+            /* Full Width to Touch Edges */
+            width: 100%; 
+            max-width: 100%; 
+            overflow: hidden;
+            /* No Border Radius on Container, Image touches edges directly */
+            border-radius: 0;
+            box-shadow: none;
+            opacity: 0;
+            /* Image slides from Right */
+            transform: translateX(30px);
+            transition: opacity 1s ease-out 0.2s, transform 1s ease-out 0.2s;
+        }
+
+        .final-image-container.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .final-image {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: cover;
+            /* Ensure image fills width perfectly and is lowered */
+            min-width: 100vw; 
+            max-width: 100vw;
+            margin-top: 20px; /* Lowered Image */
+            
+            /* Oval Top Shape for the Image Itself */
+            border-top-left-radius: 50% 20%;
+            border-top-right-radius: 50% 20%;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .couple-photo { aspect-ratio: 9/14; object-position: center 10%; }
+            .image-wrapper { border-bottom-left-radius: 50% 22%; border-bottom-right-radius: 50% 22%; }
+            
+            .music-control { width: 55px; height: 55px; margin-top: -27px; }
+            .play-icon { width: 16px; height: 16px; }
+            .circular-text text { font-size: 7.5px; }
+            
+            .name { font-size: 1.5rem; letter-spacing: 0.15em; }
+            .name-groom { top: 30%; left: 8%; transform: translateX(-40px); }
+            .name-bride { bottom: 5%; right: 8%; transform: translateX(40px); }
+            .names-section { height: 100px; margin-top: -30px; }
+            .ampersand { font-size: 1rem; }
+            
+            .invitation-heading { font-size: 1.3rem; }
+            .invitation-body { font-size: 0.85rem; line-height: 1.7; padding: 0 15px; }
+            .date-day { font-size: 2.2rem; }
+            
+            .hero-container { border-bottom-left-radius: 50% 15%; border-bottom-right-radius: 50% 15%; padding-bottom: 40px; }
+            .decorative-divider { width: 90%; max-width: 300px; }
+            
+            .location-section { padding: 40px 15px 50px; }
+            .location-image-frame { max-width: 260px; height: 160px; }
+            
+            .timeline-section { 
+                border-top-left-radius: 50% 12%; 
+                border-top-right-radius: 50% 12%; 
+                border-bottom-left-radius: 50% 12%; 
+                border-bottom-right-radius: 50% 12%; 
+                padding: 40px 15px;
+            }
+
+            /* Mobile Beige Section */
+            .beige-moments-section {
+                flex-direction: row;
+                padding: 30px 15px;
+                gap: 10px;
+                align-items: center;
+            }
+
+            .moments-photos { flex: 1; gap: 6px; }
+            .moment-photo { aspect-ratio: 1/1; }
+            .moments-date { flex: 1; padding-left: 5px; align-items: center; justify-content: space-between; }
+
+            .date-part-23 { font-size: 4.5rem; }
+            .date-part-10 { font-size: 3rem; }
+            .date-part-2025 { font-size: 1.5rem; }
+
+            /* Mobile Countdown & RSVP */
+            .countdown-section, .rsvp-section {
+                padding: 35px 15px;
+            }
+            
+            .timer-grid { gap: 15px; }
+            .timer-num { font-size: 2.5rem; }
+            
+            .rsvp-form { padding: 20px 15px; }
+
+            /* Mobile Final Section */
+            .l-invitation-text {
+                top: 20px;
+                right: 20px;
+                font-size: 1rem;
+            }
+            
+            .final-section {
+                padding-top: 40px;
+                border-top-left-radius: 50% 12%;
+                border-top-right-radius: 50% 12%;
+            }
+            
+            .waiting-text-small {
+                font-size: 1rem;
+                margin-top: 30px; /* Lowered on mobile too */
+                margin-bottom: 20px;
+            }
+            
+            .final-image {
+                margin-top: 15px; /* Lowered image on mobile */
+                border-top-left-radius: 50% 15%;
+                border-top-right-radius: 50% 15%;
+            }
+        }
+        
+        @media (min-width: 768px) {
+            .couple-photo { aspect-ratio: 3/4; }
+            .music-control { margin-top: -30px; }
+            
+            .locations-grid {
+                flex-direction: row;
+                justify-content: space-around;
+                gap: 20px;
+            }
+            .location-card { flex: 1; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="hero-container">
+        <!-- Նկար -->
+        <div class="image-wrapper">
+            <img src="https://cdn.shopify.com/s/files/1/0771/6290/5791/files/IMG_5438_1.jpg?v=1794319053" 
+                 alt="Մանվել և Սիրանուշ" 
+                 class="couple-photo">
+        </div>
+        
+        <!-- Երաժշտության կոճակ -->
+        <div class="music-control">
+            <svg class="circular-text" viewBox="0 0 100 100">
+                <defs>
+                    <path id="circlePath" d="M 50, 50 m -38, 0 a 38,38 0 1,1 76,0 a 38,38 0 1,1 -76,0" />
+                </defs>
+                <text>
+                    <textPath href="#circlePath">• наша мелодия • наша мелодия •</textPath>
+                </text>
+            </svg>
+            <svg class="play-icon" viewBox="0 0 24 24">
+                <path d="M8 5v14l11-7z"/>
+            </svg>
+        </div>
+
+        <!-- Անուններ -->
+        <div class="names-section">
+            <h1 class="name name-groom" id="nameGroom">Մանվել</h1>
+            <span class="ampersand" id="ampersand">&</span>
+            <h1 class="name name-bride" id="nameBride">Սիրանուշ</h1>
+        </div>
+
+        <!-- Դեկորատիվ գիծ -->
+        <svg class="decorative-divider" id="decorativeDivider" viewBox="0 0 400 40" xmlns="http://www.w3.org/2000/svg">
+            <path class="divider-path" d="M 20,20 Q 80,5 140,18 Q 155,20 165,15" />
+            <path class="divider-path" d="M 140,18 Q 150,25 160,22" />
+            <path class="divider-path" d="M 190,25 Q 195,10 200,5 Q 205,10 210,25" />
+            <path class="divider-path" d="M 185,22 Q 195,12 200,8" />
+            <path class="divider-path" d="M 215,22 Q 205,12 200,8" />
+            <path class="divider-path" d="M 240,18 Q 250,25 260,22" />
+            <path class="divider-path" d="M 380,20 Q 320,5 260,18 Q 245,20 235,15" />
+        </svg>
+
+        <!-- Հրավիրական տեքստ -->
+        <div class="invitation-text-block" id="invitationText">
+            <h2 class="invitation-heading">Սիրելի հյուրեր</h2>
+            <p class="invitation-body">
+                Մեծ սիրով և հուզմունքով սպասում ենք այն օրվան, երբ միասին կնշենք մեր սիրո և ընտանիքի ստեղծման տոնը։<br><br>
+                Ձեր ներկայությունն ու ջերմ խոսքերը մեզ համար ամենաթանկ նվերն են լինելու։ Սիրով հրավիրում ենք ձեզ կիսել մեզ հետ այս անմոռանալի պահերը։
+            </p>
+        </div>
+
+        <!-- ✅ ԹԱՐՄԱՑՎԱԾ ԱՄՍԱԹԻՎ (23.10.2025) -->
+        <div class="date-block">
+            <span class="date-item date-month" id="dateMonth">Հոկտեմբեր</span>
+            <div class="date-separator" id="sep1"></div>
+            <span class="date-item date-day" id="dateDay">23</span>
+            <div class="date-separator" id="sep2"></div>
+            <span class="date-item date-year" id="dateYear">2025</span>
+        </div>
+    </div>
+
+    <!-- ✅ LOCATION SECTION (RESTORED OLD STYLE) -->
+    <section class="location-section" id="locSection">
+        <h2 class="location-title">Հասցեներ</h2>
+        
+        <div class="locations-grid">
+            <!-- Եկեղեցի (Slides from Left) -->
+            <div class="location-card">
+                <div class="location-image-frame">
+                    <img src="https://cdn.shopify.com/s/files/1/0771/6290/5791/files/193140216_4369338086432270_7837731367334312683_n.jpg?v=1794331304" 
+                         alt="Արտաշատի Սուրբ Հովհաննես Ավետարանիչ եկեղեցի" 
+                         class="location-img">
+                </div>
+                <h3 class="location-name">Սուրբ Հովհաննես<br>Ավետարանիչ</h3>
+                <p class="location-address">ՀՀ, ք. Արտաշատ<br>Երևանյան փողոց 2<br>14:00</p>
+                <a href="https://maps.google.com/?q=Saint+John+the+Evangelist+Church+Artashat+Yerevan+Street+2" target="_blank" class="btn-map">Տեսնել քարտեզում</a>
+            </div>
+
+            <!-- Սրահ (Slides from Right) -->
+            <div class="location-card">
+                <div class="location-image-frame">
+                    <img src="https://cdn.shopify.com/s/files/1/0771/6290/5791/files/XXL_height.webp?v=1794331302" 
+                         alt="Արտաշատ Էկո Գարդեն ռեստորան" 
+                         class="location-img">
+                </div>
+                <h3 class="location-name">Artashat Eco Garden</h3>
+                <p class="location-address">ք. Արտաշատ<br>Սամվել Հակոբյան փողոց 104<br>16:30</p>
+                <a href="https://maps.google.com/?q=Artashat+Eco+Garden+Samvel+Hakobyan+Street+104" target="_blank" class="btn-map">Տեսնել քարտեզում</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ✅ TIMELINE SECTION -->
+    <section class="timeline-section" id="timeSection">
+        <h2 class="timeline-title">Օրվա ծրագիր</h2>
+        
+        <div class="timeline-list">
+            <div class="timeline-item" id="time1">
+                <div class="timeline-time">14:00</div>
+                <div class="timeline-event">Պսակադրություն</div>
+                <div class="timeline-sub">Սուրբ Հովհաննես եկեղեցի</div>
+            </div>
+            
+            <div class="timeline-item" id="time2">
+                <div class="timeline-time">16:30</div>
+                <div class="timeline-event">Հյուրերի ընդունելություն</div>
+                <div class="timeline-sub">Artashat Eco Garden</div>
+            </div>
+            
+            <div class="timeline-item" id="time3">
+                <div class="timeline-time">18:00</div>
+                <div class="timeline-event">Հարսանեկան խնջույք</div>
+                <div class="timeline-sub">Սեղանների բացում</div>
+            </div>
+            
+            <div class="timeline-item" id="time4">
+                <div class="timeline-time">22:00</div>
+                <div class="timeline-event">Հարսանեկան տորթ</div>
+                <div class="timeline-sub">Քաղցր պահ</div>
+            </div>
+            
+            <div class="timeline-item" id="time5">
+                <div class="timeline-time">22:30</div>
+                <div class="timeline-event">After-party</div>
+                <div class="timeline-sub">Պարեր և զվարճանք</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ✅ NEW BEIGE MOMENTS SECTION -->
+    <section class="beige-moments-section" id="beigeSection">
+        <!-- Left: 3 Photos Stacked (Slide from Left) -->
+        <div class="moments-photos">
+            <div class="moment-photo" id="photo1">
+                <img src="https://cdn.shopify.com/s/files/1/0771/6290/5791/files/IMG_5402.jpg?v=1794332902" alt="Moment 1">
+            </div>
+            <div class="moment-photo" id="photo2">
+                <img src="https://cdn.shopify.com/s/files/1/0771/6290/5791/files/IMG_5475_1.jpg?v=1794332930" alt="Moment 2">
+            </div>
+            <div class="moment-photo" id="photo3">
+                <img src="https://cdn.shopify.com/s/files/1/0771/6290/5791/files/IMG_5561.jpg?v=1794332941" alt="Moment 3">
+            </div>
+        </div>
+
+        <!-- Right: Big Date Aligned (Slide from Right) -->
+        <div class="moments-date">
+            <div class="big-date-number date-part-23" id="date23">23</div>
+            <div class="big-date-number date-part-10" id="date10">10</div>
+            <div class="big-date-number date-part-2025" id="date2025">2025</div>
+        </div>
+    </section>
+
+    <!-- ✅ COUNTDOWN SECTION (DARK OLIVE BACKGROUND, REFERENCE FORMAT) -->
+    <section class="countdown-section" id="countSection">
+        <h2 class="countdown-title">Մինչ մեր հարսանիքը մնացել է</h2>
+        
+        <div class="timer-grid">
+            <div class="timer-block">
+                <span class="timer-num" id="days">00</span>
+                <span class="timer-label">Օր</span>
+            </div>
+            <div class="timer-block">
+                <span class="timer-num" id="hours">00</span>
+                <span class="timer-label">Ժամ</span>
+            </div>
+            <div class="timer-block">
+                <span class="timer-num" id="minutes">00</span>
+                <span class="timer-label">Րոպե</span>
+            </div>
+            <div class="timer-block">
+                <span class="timer-num" id="seconds">00</span>
+                <span class="timer-label">Վայրկյան</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ✅ RSVP SECTION (NO OVAL, DARK OLIVE TEXT) -->
+    <section class="rsvp-section" id="rsvpSection">
+        <h2 class="rsvp-title">Հարցաթերթիկ</h2>
+        
+        <form class="rsvp-form" onsubmit="event.preventDefault(); alert('Շնորհակալություն! Ձեր պատասխանը գրանցված է։');">
+            
+            <p class="form-intro">
+                Խնդրում ենք հաստատել Ձեր ներկայությունը մինչև հոկտեմբերի 25-ը։
+            </p>
+
+            <div class="form-group">
+                <label class="form-label">Կկարողանա՞ք մասնակցել</label>
+                <div class="radio-group">
+                    <label class="radio-label">
+                        <input type="radio" name="attendance" value="yes" required>
+                        Այո, սիրով կմասնակցենք
+                    </label>
+                    <label class="radio-label">
+                        <input type="radio" name="attendance" value="no">
+                        Ոչ, ցավոք չեմ կարողանա մասնակցել
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Ու՞մ կողմից եք</label>
+                <div class="radio-group">
+                    <label class="radio-label">
+                        <input type="radio" name="side" value="groom" required>
+                        Փեսայի
+                    </label>
+                    <label class="radio-label">
+                        <input type="radio" name="side" value="bride">
+                        Հարսի
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <input type="text" class="form-input" placeholder="Անուն Ազգանուն" required>
+                <input type="tel" class="form-input" placeholder="Հեռախոսահամար">
+                <input type="text" class="form-input" placeholder="Մեկնաբանություն">
+            </div>
+
+            <button type="submit" class="btn-submit">Պատասխանել</button>
+        </form>
+    </section>
+
+    <!-- ✅ FINAL SECTION (OVAL GREEN BG + FULL WIDTH IMAGE) -->
+    <section class="final-section" id="finalSection">
+        <div class="l-invitation-text">L'Invitation</div>
+        
+        <p class="waiting-text-small" id="waitingText">Սիրով սպասում ենք Ձեզ</p>
+        
+        <div class="final-image-container" id="finalImage">
+            <img src="https://cdn.shopify.com/s/files/1/0771/6290/5791/files/IMG_5402.jpg?v=1794332902" 
+                 alt="Մանվել և Սիրանուշ" 
+                 class="final-image">
+        </div>
+    </section>
+
+    <!-- Scroll Animation Script & Countdown Logic -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // --- ANIMATIONS ---
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.15
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, observerOptions);
+
+            // Hero Elements
+            const heroElements = [
+                { el: document.getElementById('nameGroom'), delay: 0 },
+                { el: document.getElementById('ampersand'), delay: 200 },
+                { el: document.getElementById('nameBride'), delay: 400 },
+                { el: document.getElementById('decorativeDivider'), delay: 600 },
+                { el: document.getElementById('invitationText'), delay: 800 },
+                
+                { el: document.getElementById('dateMonth'), delay: 1000 },
+                { el: document.getElementById('sep1'), delay: 1150 },
+                { el: document.getElementById('dateDay'), delay: 1300 },
+                { el: document.getElementById('sep2'), delay: 1450 },
+                { el: document.getElementById('dateYear'), delay: 1600 }
+            ];
+
+            heroElements.forEach(({ el, delay }) => {
+                if (el) {
+                    el.style.transitionDelay = `${delay}ms`;
+                    observer.observe(el);
+                }
+            });
+
+            // ✅ TIMELINE ITEMS ALTERNATING ANIMATION
+            const timelineItems = document.querySelectorAll('.timeline-item');
+            timelineItems.forEach((item, index) => {
+                // Even items slide from left, Odd items slide from right
+                const direction = index % 2 === 0 ? '-40px' : '40px';
+                item.style.transform = `translateX(${direction})`;
+                item.style.transitionDelay = `${index * 150}ms`;
+                observer.observe(item);
+            });
+
+            // Beige Section Elements
+            const beigeSequence = [
+                { el: document.getElementById('photo1'), delay: 0 },
+                { el: document.getElementById('date23'), delay: 200 },
+                { el: document.getElementById('photo2'), delay: 400 },
+                { el: document.getElementById('date10'), delay: 600 },
+                { el: document.getElementById('photo3'), delay: 800 },
+                { el: document.getElementById('date2025'), delay: 1000 }
+            ];
+
+            beigeSequence.forEach(({ el, delay }) => {
+                if (el) {
+                    el.style.transitionDelay = `${delay}ms`;
+                    observer.observe(el);
+                }
+            });
+
+            // ✅ MAIN SECTIONS ALTERNATING SLIDE-IN ANIMATION
+            const mainSections = [
+                { el: document.getElementById('locSection'), delay: 0 },      // Left
+                { el: document.getElementById('timeSection'), delay: 100 },   // Right
+                { el: document.getElementById('beigeSection'), delay: 200 },  // Left
+                { el: document.getElementById('countSection'), delay: 300 },  // Right
+                { el: document.getElementById('rsvpSection'), delay: 400 },   // Left
+                { el: document.getElementById('finalSection'), delay: 500 }   // Right
+            ];
+
+            mainSections.forEach(({ el, delay }) => {
+                if (el) {
+                    el.style.transitionDelay = `${delay}ms`;
+                    observer.observe(el);
+                }
+            });
+
+            // Final Section Inner Elements
+            const finalImage = document.getElementById('finalImage');
+            const waitingText = document.getElementById('waitingText');
+            
+            if(finalImage) observer.observe(finalImage);
+            if(waitingText) observer.observe(waitingText);
+
+            // ✅ COUNTDOWN TIMER LOGIC (UPDATED)
+            const weddingDate = new Date('2025-10-23T14:00:00').getTime();
+
+            function updateTimer() {
+                const now = new Date().getTime();
+                const distance = weddingDate - now;
+
+                // ✅ IF TIME IS UP, SHOW 00:00:00:00
+                if (distance < 0) {
+                    document.getElementById('days').innerText = '00';
+                    document.getElementById('hours').innerText = '00';
+                    document.getElementById('minutes').innerText = '00';
+                    document.getElementById('seconds').innerText = '00';
+                    return;
+                }
+
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                document.getElementById('days').innerText = days < 10 ? '0' + days : days;
+                document.getElementById('hours').innerText = hours < 10 ? '0' + hours : hours;
+                document.getElementById('minutes').innerText = minutes < 10 ? '0' + minutes : minutes;
+                document.getElementById('seconds').innerText = seconds < 10 ? '0' + seconds : seconds;
+            }
+
+            setInterval(updateTimer, 1000);
+            updateTimer(); // Run immediately
+        });
+    </script>
+
+</body>
+</html>

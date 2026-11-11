@@ -2,7 +2,7 @@
 <html lang="hy">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Մանվել & Սիրանուշ | Հարսանիք</title>
     
     <!-- Google Fonts -->
@@ -20,9 +20,13 @@
             --text-black: #222222;
             --btn-bg: #e8e6dc;
             --btn-text: #6b6d5e;
+            
+            /* ✅ MOBILE OPTIMIZED SIZES */
+            --mobile-padding: clamp(15px, 4vw, 20px);
+            --section-gap: clamp(30px, 6vw, 40px);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
         body {
             background-color: var(--bg-cream);
@@ -32,6 +36,7 @@
             flex-direction: column;
             align-items: center;
             min-height: 100vh;
+            min-height: 100dvh; /* ✅ BETTER MOBILE HEIGHT HANDLING */
         }
 
         /* --- HERO SECTION --- */
@@ -53,6 +58,63 @@
             padding-top: 0;
             padding-bottom: 50px;
             box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+        }
+
+        /* ✅ NAMES AT THE TOP */
+        .names-section {
+            position: relative;
+            width: 100%;
+            height: auto;
+            min-height: 80px;
+            margin-top: 30px;
+            margin-bottom: 20px;
+            z-index: 5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .name {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 300;
+            font-size: clamp(1.8rem, 5vw, 2.2rem); /* ✅ RESPONSIVE FONT SIZE */
+            line-height: 1.1;
+            color: var(--text-white); 
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            
+            opacity: 0;
+            transition: opacity 1.2s cubic-bezier(0.25, 1, 0.5, 1), transform 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .name.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .name-groom {
+            transform: translateX(-50px);
+        }
+
+        .name-bride {
+            transform: translateX(50px);
+        }
+
+        .ampersand {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 300;
+            font-size: clamp(1.2rem, 3vw, 1.5rem);
+            color: var(--text-white);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            
+            opacity: 0;
+            transition: opacity 1.2s ease-out;
+        }
+
+        .ampersand.visible {
+            opacity: 0.7;
         }
 
         .image-wrapper {
@@ -119,66 +181,6 @@
 
         @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
-        .names-section {
-            position: relative;
-            width: 100%;
-            height: 110px;
-            margin-top: -35px; 
-            z-index: 5;
-        }
-
-        .name {
-            font-family: 'Cormorant Garamond', serif;
-            font-weight: 300;
-            font-size: 1.8rem; 
-            line-height: 1.1;
-            color: var(--text-white); 
-            text-transform: uppercase;
-            letter-spacing: 0.2em;
-            
-            opacity: 0;
-            transition: opacity 1.2s cubic-bezier(0.25, 1, 0.5, 1), transform 1.2s cubic-bezier(0.25, 1, 0.5, 1);
-        }
-
-        .name.visible {
-            opacity: 1;
-            transform: translateX(0);
-        }
-
-        .name-groom {
-            position: absolute;
-            top: 35%;
-            left: 10%;
-            transform: translateX(-50px);
-        }
-
-        .name-bride {
-            position: absolute;
-            bottom: 5%;
-            right: 10%;
-            transform: translateX(50px);
-        }
-
-        .ampersand {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-family: 'Cormorant Garamond', serif;
-            font-weight: 300;
-            font-size: 1.2rem;
-            color: var(--text-white);
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            
-            opacity: 0;
-            transition: opacity 1.2s ease-out;
-        }
-
-        .ampersand.visible {
-            opacity: 0.7;
-        }
-
         .decorative-divider {
             width: 85%; 
             max-width: 350px;
@@ -220,7 +222,7 @@
         .invitation-heading {
             font-family: 'Cormorant Garamond', serif;
             font-weight: 400;
-            font-size: 1.6rem;
+            font-size: clamp(1.4rem, 4vw, 1.6rem);
             text-transform: uppercase;
             letter-spacing: 0.15em;
             margin-bottom: 20px;
@@ -229,7 +231,7 @@
 
         .invitation-body {
             font-family: 'Noto Serif Armenian', serif;
-            font-size: 0.9rem; 
+            font-size: clamp(0.85rem, 2.5vw, 0.9rem); 
             line-height: 1.8;
             font-weight: 400;
             color: var(--text-white);
@@ -260,7 +262,7 @@
 
         .date-month {
             font-family: 'Noto Serif Armenian', serif;
-            font-size: 0.9rem;
+            font-size: clamp(0.85rem, 2.5vw, 0.9rem);
             letter-spacing: 0.1em;
             color: var(--text-white);
             opacity: 0.9;
@@ -269,14 +271,14 @@
         .date-day {
             font-family: 'Cormorant Garamond', serif;
             font-weight: 300;
-            font-size: 2.8rem; 
+            font-size: clamp(2.4rem, 7vw, 2.8rem); 
             color: var(--text-white);
             line-height: 1;
         }
 
         .date-year {
             font-family: 'Noto Serif Armenian', serif;
-            font-size: 0.9rem;
+            font-size: clamp(0.85rem, 2.5vw, 0.9rem);
             letter-spacing: 0.1em;
             color: var(--text-white);
             opacity: 0.9;
@@ -294,12 +296,12 @@
             opacity: 0.4;
         }
 
-        /* --- ✅ LOCATION SECTION (RESTORED OLD STYLE WITH CARDS) --- */
+        /* --- ✅ LOCATION SECTION (EQUAL SPACING + ALTERNATING SLIDE) --- */
         .location-section {
             width: 100%;
             max-width: 500px;
             background-color: var(--bg-cream);
-            padding: 50px 20px 60px;
+            padding: var(--section-gap) var(--mobile-padding);
             text-align: center;
             
             /* Section Animation */
@@ -316,25 +318,25 @@
         .location-title {
             font-family: 'Cormorant Garamond', serif;
             font-weight: 400;
-            font-size: 1.5rem;
+            font-size: clamp(1.3rem, 4vw, 1.5rem);
             text-transform: uppercase;
             letter-spacing: 0.15em;
             color: var(--text-dark);
-            margin-bottom: 30px;
+            margin-bottom: var(--section-gap);
         }
 
         .locations-grid {
             display: flex;
             flex-direction: column;
-            gap: 40px;
+            gap: var(--section-gap); /* ✅ EQUAL SPACING */
         }
 
         .location-card {
             display: flex;
             flex-direction: column;
             align-items: center;
-            /* Card Animation - FIXED TO ENSURE VISIBILITY */
-            opacity: 1; /* Changed from 0 to 1 as fallback */
+            /* Card Animation */
+            opacity: 1;
             transition: opacity 1s ease-out, transform 1s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
@@ -356,7 +358,7 @@
         .location-image-frame {
             width: 100%;
             max-width: 280px;
-            height: 170px;
+            height: clamp(140px, 35vw, 170px); /* ✅ RESPONSIVE HEIGHT */
             border: 1px solid rgba(74, 76, 66, 0.2);
             padding: 6px;
             background: white;
@@ -373,7 +375,7 @@
         .location-name {
             font-family: 'Cormorant Garamond', serif;
             font-weight: 600;
-            font-size: 1.2rem;
+            font-size: clamp(1.1rem, 3vw, 1.2rem);
             color: var(--text-dark);
             margin-bottom: 5px;
             text-transform: uppercase;
@@ -382,7 +384,7 @@
 
         .location-address {
             font-family: 'Noto Serif Armenian', serif;
-            font-size: 0.8rem;
+            font-size: clamp(0.75rem, 2vw, 0.8rem);
             color: var(--text-dark);
             opacity: 0.8;
             line-height: 1.5;
@@ -396,7 +398,7 @@
             color: var(--text-dark);
             text-decoration: none;
             font-family: 'Noto Serif Armenian', serif;
-            font-size: 0.7rem;
+            font-size: clamp(0.65rem, 1.8vw, 0.7rem);
             text-transform: uppercase;
             letter-spacing: 0.1em;
             transition: all 0.3s ease;
@@ -407,7 +409,7 @@
             color: var(--bg-cream);
         }
 
-        /* --- ✅ TIMELINE SECTION (ANIMATED) --- */
+        /* --- ✅ TIMELINE SECTION (EQUAL SPACING + ALTERNATING SLIDE) --- */
         .timeline-section {
             width: 100%;
             max-width: 500px;
@@ -417,7 +419,7 @@
             border-bottom-left-radius: 50% 15%;
             border-bottom-right-radius: 50% 15%;
             
-            padding: 60px 20px;
+            padding: var(--section-gap) var(--mobile-padding);
             text-align: center;
             color: var(--text-white);
             margin-bottom: 0;
@@ -437,10 +439,10 @@
         .timeline-title {
             font-family: 'Cormorant Garamond', serif;
             font-weight: 400;
-            font-size: 1.6rem;
+            font-size: clamp(1.4rem, 4vw, 1.6rem);
             text-transform: uppercase;
             letter-spacing: 0.15em;
-            margin-bottom: 40px;
+            margin-bottom: var(--section-gap);
             border-bottom: 1px solid rgba(255,255,255,0.3);
             display: inline-block;
             padding-bottom: 10px;
@@ -449,7 +451,7 @@
         .timeline-list {
             display: flex;
             flex-direction: column;
-            gap: 30px;
+            gap: var(--section-gap); /* ✅ EQUAL SPACING */
             position: relative;
         }
 
@@ -479,14 +481,14 @@
 
         .timeline-time {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 2rem;
+            font-size: clamp(1.8rem, 5vw, 2rem);
             font-weight: 300;
             margin-bottom: 5px;
         }
 
         .timeline-event {
             font-family: 'Noto Serif Armenian', serif;
-            font-size: 0.9rem;
+            font-size: clamp(0.85rem, 2.5vw, 0.9rem);
             text-transform: uppercase;
             letter-spacing: 0.1em;
             opacity: 0.9;
@@ -494,7 +496,7 @@
 
         .timeline-sub {
             font-family: 'Noto Serif Armenian', serif;
-            font-size: 0.75rem;
+            font-size: clamp(0.7rem, 2vw, 0.75rem);
             opacity: 0.6;
             margin-top: 3px;
         }
@@ -504,7 +506,7 @@
             width: 100%;
             max-width: 500px;
             background-color: var(--bg-cream);
-            padding: 60px 30px;
+            padding: var(--section-gap) clamp(20px, 5vw, 30px);
             display: flex;
             flex-direction: row;
             align-items: stretch;
@@ -580,18 +582,18 @@
             transform: translateX(0);
         }
 
-        .date-part-23 { font-size: 9rem; }
-        .date-part-10 { font-size: 6rem; }
-        .date-part-2025 { font-size: 3.5rem; opacity: 0.8; }
+        .date-part-23 { font-size: clamp(5rem, 15vw, 9rem); }
+        .date-part-10 { font-size: clamp(3.5rem, 10vw, 6rem); }
+        .date-part-2025 { font-size: clamp(2rem, 6vw, 3.5rem); opacity: 0.8; }
 
         /* --- ✅ COUNTDOWN SECTION (DARK OLIVE BACKGROUND, REFERENCE FORMAT, ANIMATED) --- */
         .countdown-section {
             width: 100%;
             max-width: 500px;
-            background-color: var(--bg-olive); /* Dark Olive BG */
-            padding: 50px 20px;
+            background-color: var(--bg-olive);
+            padding: var(--section-gap) var(--mobile-padding);
             text-align: center;
-            color: var(--text-white); /* White Text */
+            color: var(--text-white);
             margin-top: 0;
             margin-bottom: 0;
             
@@ -609,8 +611,8 @@
         .countdown-title {
             font-family: 'Cormorant Garamond', serif;
             font-weight: 400;
-            font-style: italic; /* Italic like reference */
-            font-size: 1.3rem;
+            font-style: italic;
+            font-size: clamp(1.1rem, 3.5vw, 1.3rem);
             margin-bottom: 30px;
             color: var(--text-white);
             letter-spacing: 0.05em;
@@ -619,7 +621,7 @@
         .timer-grid {
             display: flex;
             justify-content: center;
-            gap: 30px; /* Spacing between numbers */
+            gap: clamp(15px, 5vw, 30px);
         }
 
         .timer-block {
@@ -629,7 +631,7 @@
 
         .timer-num {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 3.2rem; /* Large numbers like reference */
+            font-size: clamp(2.5rem, 8vw, 3.2rem);
             font-weight: 300;
             line-height: 1;
             display: block;
@@ -639,7 +641,7 @@
 
         .timer-label {
             font-family: 'Noto Serif Armenian', serif;
-            font-size: 0.75rem;
+            font-size: clamp(0.65rem, 2vw, 0.75rem);
             text-transform: uppercase;
             letter-spacing: 0.1em;
             color: var(--text-white);
@@ -650,16 +652,13 @@
         .rsvp-section {
             width: 100%;
             max-width: 500px;
-            background-color: #ffffff; /* White BG, no oval */
-            
-            /* Removed Border Radius */
+            background-color: #ffffff;
             border-radius: 0; 
-            
-            padding: 50px 30px;
+            padding: var(--section-gap) clamp(20px, 5vw, 30px);
             text-align: center;
-            color: var(--text-dark); /* Dark Olive Text */
+            color: var(--text-dark);
             margin-top: 0;
-            margin-bottom: 0; /* Connect to next section */
+            margin-bottom: 0;
             
             /* Initial State for Animation */
             opacity: 0;
@@ -675,29 +674,28 @@
         .rsvp-title {
             font-family: 'Cormorant Garamond', serif;
             font-weight: 400;
-            font-size: 1.6rem;
+            font-size: clamp(1.4rem, 4vw, 1.6rem);
             text-transform: uppercase;
             letter-spacing: 0.15em;
             margin-bottom: 25px;
-            border-bottom: 1px solid rgba(74, 76, 66, 0.3); /* Dark Line */
+            border-bottom: 1px solid rgba(74, 76, 66, 0.3);
             display: inline-block;
             padding-bottom: 8px;
             color: var(--text-dark);
         }
 
-        /* Form Styles */
         .rsvp-form {
             background-color: #ffffff;
             padding: 25px 20px;
             border-radius: 12px;
             text-align: left;
-            color: var(--text-dark); /* Dark Olive Text */
+            color: var(--text-dark);
         }
 
         .form-intro {
             font-family: 'Cormorant Garamond', serif;
             font-style: italic;
-            font-size: 0.95rem;
+            font-size: clamp(0.85rem, 2.5vw, 0.95rem);
             text-align: center;
             margin-bottom: 20px;
             color: var(--text-dark);
@@ -711,13 +709,12 @@
         .form-label {
             display: block;
             font-family: 'Noto Serif Armenian', serif;
-            font-size: 0.9rem;
+            font-size: clamp(0.8rem, 2.5vw, 0.9rem);
             font-weight: 600;
             margin-bottom: 10px;
-            color: var(--text-dark); /* Dark Color */
+            color: var(--text-dark);
         }
 
-        /* Custom Radio Buttons (Filled Dark Olive Dot) */
         .radio-group {
             display: flex;
             flex-direction: column;
@@ -728,7 +725,7 @@
             display: flex;
             align-items: center;
             font-family: 'Noto Serif Armenian', serif;
-            font-size: 0.85rem;
+            font-size: clamp(0.75rem, 2.2vw, 0.85rem);
             cursor: pointer;
             color: #555;
         }
@@ -738,30 +735,30 @@
             -webkit-appearance: none;
             width: 16px;
             height: 16px;
-            border: 2px solid var(--text-dark); /* Dark Border */
+            border: 2px solid var(--text-dark);
             border-radius: 50%;
             margin-right: 10px;
             position: relative;
             outline: none;
             cursor: pointer;
             background: white;
+            flex-shrink: 0;
         }
 
         .radio-label input[type="radio"]:checked {
-            background-color: var(--text-dark); /* Filled Dark Dot */
+            background-color: var(--text-dark);
             border-color: var(--text-dark);
         }
 
-        /* Inputs and Selects */
         .form-input, .form-select {
             width: 100%;
             padding: 10px 12px;
             background: #ffffff;
             border: 1px solid #cccccc;
             border-radius: 20px;
-            color: var(--text-dark); /* Dark Text */
+            color: var(--text-dark);
             font-family: 'Noto Serif Armenian', serif;
-            font-size: 0.85rem;
+            font-size: clamp(0.75rem, 2.2vw, 0.85rem);
             outline: none;
             margin-bottom: 8px;
         }
@@ -771,21 +768,20 @@
         }
 
         .form-input:focus, .form-select:focus {
-            border-color: var(--text-dark); /* Dark Focus */
+            border-color: var(--text-dark);
         }
 
-        /* Submit Button */
         .btn-submit {
             display: block;
             width: fit-content;
             margin: 15px auto 0;
             padding: 10px 30px;
-            background-color: var(--text-dark); /* Dark Olive Button */
+            background-color: var(--text-dark);
             color: #ffffff;
             border: none;
             border-radius: 20px;
             font-family: 'Noto Serif Armenian', serif;
-            font-size: 0.9rem;
+            font-size: clamp(0.8rem, 2.5vw, 0.9rem);
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
@@ -799,14 +795,11 @@
         /* --- ✅ FINAL SECTION (OVAL GREEN BG + FULL WIDTH IMAGE, ANIMATED) --- */
         .final-section {
             width: 100%;
-            /* No Max-Width Constraint so it can touch edges */
-            background-color: var(--bg-olive); /* Dark Olive */
+            background-color: var(--bg-olive);
             position: relative;
             overflow: hidden;
-            /* Oval Top Shape for the entire green background */
             border-top-left-radius: 50% 15%;
             border-top-right-radius: 50% 15%;
-            /* Rectangular Bottom */
             border-bottom-left-radius: 0;
             border-bottom-right-radius: 0;
             padding-top: 60px;
@@ -832,7 +825,7 @@
             top: 30px;
             right: 30px;
             font-family: 'Cormorant Garamond', serif;
-            font-size: 1.2rem;
+            font-size: clamp(1rem, 3vw, 1.2rem);
             font-weight: 600;
             letter-spacing: 0.1em;
             color: var(--text-white);
@@ -842,17 +835,15 @@
 
         .waiting-text-small {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 1.2rem; /* Small Size */
+            font-size: clamp(1rem, 3vw, 1.2rem);
             font-weight: 400;
             font-style: italic;
             color: var(--text-white);
-            /* Lowered Position */
             margin-top: 40px; 
             margin-bottom: 25px;
             letter-spacing: 0.05em;
             z-index: 2;
             opacity: 0;
-            /* Text slides from Left */
             transform: translateX(-30px);
             transition: opacity 1s ease-out, transform 1s ease-out;
         }
@@ -863,15 +854,12 @@
         }
 
         .final-image-container {
-            /* Full Width to Touch Edges */
             width: 100%; 
             max-width: 100%; 
             overflow: hidden;
-            /* No Border Radius on Container, Image touches edges directly */
             border-radius: 0;
             box-shadow: none;
             opacity: 0;
-            /* Image slides from Right */
             transform: translateX(30px);
             transition: opacity 1s ease-out 0.2s, transform 1s ease-out 0.2s;
         }
@@ -886,53 +874,31 @@
             height: auto;
             display: block;
             object-fit: cover;
-            /* Ensure image fills width perfectly and is lowered */
             min-width: 100vw; 
             max-width: 100vw;
-            margin-top: 20px; /* Lowered Image */
-            
-            /* Oval Top Shape for the Image Itself */
+            margin-top: 20px;
             border-top-left-radius: 50% 20%;
             border-top-right-radius: 50% 20%;
         }
 
-        /* Responsive */
+        /* Responsive Mobile Optimizations */
         @media (max-width: 600px) {
-            .couple-photo { aspect-ratio: 9/14; object-position: center 10%; }
-            .image-wrapper { border-bottom-left-radius: 50% 22%; border-bottom-right-radius: 50% 22%; }
-            
-            .music-control { width: 55px; height: 55px; margin-top: -27px; }
-            .play-icon { width: 16px; height: 16px; }
-            .circular-text text { font-size: 7.5px; }
-            
-            .name { font-size: 1.5rem; letter-spacing: 0.15em; }
-            .name-groom { top: 30%; left: 8%; transform: translateX(-40px); }
-            .name-bride { bottom: 5%; right: 8%; transform: translateX(40px); }
-            .names-section { height: 100px; margin-top: -30px; }
-            .ampersand { font-size: 1rem; }
-            
-            .invitation-heading { font-size: 1.3rem; }
-            .invitation-body { font-size: 0.85rem; line-height: 1.7; padding: 0 15px; }
-            .date-day { font-size: 2.2rem; }
-            
-            .hero-container { border-bottom-left-radius: 50% 15%; border-bottom-right-radius: 50% 15%; padding-bottom: 40px; }
+            .hero-container { 
+                border-bottom-left-radius: 50% 15%; 
+                border-bottom-right-radius: 50% 15%; 
+                padding-bottom: 40px; 
+            }
             .decorative-divider { width: 90%; max-width: 300px; }
-            
-            .location-section { padding: 40px 15px 50px; }
-            .location-image-frame { max-width: 260px; height: 160px; }
             
             .timeline-section { 
                 border-top-left-radius: 50% 12%; 
                 border-top-right-radius: 50% 12%; 
                 border-bottom-left-radius: 50% 12%; 
                 border-bottom-right-radius: 50% 12%; 
-                padding: 40px 15px;
             }
 
-            /* Mobile Beige Section */
             .beige-moments-section {
                 flex-direction: row;
-                padding: 30px 15px;
                 gap: 10px;
                 align-items: center;
             }
@@ -941,26 +907,7 @@
             .moment-photo { aspect-ratio: 1/1; }
             .moments-date { flex: 1; padding-left: 5px; align-items: center; justify-content: space-between; }
 
-            .date-part-23 { font-size: 4.5rem; }
-            .date-part-10 { font-size: 3rem; }
-            .date-part-2025 { font-size: 1.5rem; }
-
-            /* Mobile Countdown & RSVP */
-            .countdown-section, .rsvp-section {
-                padding: 35px 15px;
-            }
-            
-            .timer-grid { gap: 15px; }
-            .timer-num { font-size: 2.5rem; }
-            
-            .rsvp-form { padding: 20px 15px; }
-
-            /* Mobile Final Section */
-            .l-invitation-text {
-                top: 20px;
-                right: 20px;
-                font-size: 1rem;
-            }
+            .l-invitation-text { top: 20px; right: 20px; }
             
             .final-section {
                 padding-top: 40px;
@@ -968,17 +915,8 @@
                 border-top-right-radius: 50% 12%;
             }
             
-            .waiting-text-small {
-                font-size: 1rem;
-                margin-top: 30px; /* Lowered on mobile too */
-                margin-bottom: 20px;
-            }
-            
-            .final-image {
-                margin-top: 15px; /* Lowered image on mobile */
-                border-top-left-radius: 50% 15%;
-                border-top-right-radius: 50% 15%;
-            }
+            .waiting-text-small { margin-top: 30px; margin-bottom: 20px; }
+            .final-image { margin-top: 15px; border-top-left-radius: 50% 15%; border-top-right-radius: 50% 15%; }
         }
         
         @media (min-width: 768px) {
@@ -997,6 +935,13 @@
 <body>
 
     <div class="hero-container">
+        <!-- ✅ NAMES AT THE TOP -->
+        <div class="names-section">
+            <h1 class="name name-groom" id="nameGroom">Մանվել</h1>
+            <span class="ampersand" id="ampersand">&</span>
+            <h1 class="name name-bride" id="nameBride">Սիրանուշ</h1>
+        </div>
+
         <!-- Նկար -->
         <div class="image-wrapper">
             <img src="https://cdn.shopify.com/s/files/1/0771/6290/5791/files/IMG_5438_1.jpg?v=1794319053" 
@@ -1017,13 +962,6 @@
             <svg class="play-icon" viewBox="0 0 24 24">
                 <path d="M8 5v14l11-7z"/>
             </svg>
-        </div>
-
-        <!-- Անուններ -->
-        <div class="names-section">
-            <h1 class="name name-groom" id="nameGroom">Մանվել</h1>
-            <span class="ampersand" id="ampersand">&</span>
-            <h1 class="name name-bride" id="nameBride">Սիրանուշ</h1>
         </div>
 
         <!-- Դեկորատիվ գիծ -->
@@ -1056,7 +994,7 @@
         </div>
     </div>
 
-    <!-- ✅ LOCATION SECTION (RESTORED OLD STYLE) -->
+    <!-- ✅ LOCATION SECTION (EQUAL SPACING + ALTERNATING SLIDE) -->
     <section class="location-section" id="locSection">
         <h2 class="location-title">Հասցեներ</h2>
         
@@ -1087,7 +1025,7 @@
         </div>
     </section>
 
-    <!-- ✅ TIMELINE SECTION -->
+    <!-- ✅ TIMELINE SECTION (EQUAL SPACING + ALTERNATING SLIDE) -->
     <section class="timeline-section" id="timeSection">
         <h2 class="timeline-title">Օրվա ծրագիր</h2>
         
@@ -1272,7 +1210,7 @@
                 }
             });
 
-            // ✅ TIMELINE ITEMS ALTERNATING ANIMATION
+            // ✅ TIMELINE ITEMS ALTERNATING ANIMATION (EQUAL SPACING)
             const timelineItems = document.querySelectorAll('.timeline-item');
             timelineItems.forEach((item, index) => {
                 // Even items slide from left, Odd items slide from right
@@ -1323,14 +1261,13 @@
             if(finalImage) observer.observe(finalImage);
             if(waitingText) observer.observe(waitingText);
 
-            // ✅ COUNTDOWN TIMER LOGIC (UPDATED)
+            // ✅ COUNTDOWN TIMER LOGIC
             const weddingDate = new Date('2025-10-23T14:00:00').getTime();
 
             function updateTimer() {
                 const now = new Date().getTime();
                 const distance = weddingDate - now;
 
-                // ✅ IF TIME IS UP, SHOW 00:00:00:00
                 if (distance < 0) {
                     document.getElementById('days').innerText = '00';
                     document.getElementById('hours').innerText = '00';
@@ -1351,7 +1288,7 @@
             }
 
             setInterval(updateTimer, 1000);
-            updateTimer(); // Run immediately
+            updateTimer();
         });
     </script>
 
